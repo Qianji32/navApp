@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <!-- Neutrals -->
+    <color name="gray_50">#F8FAFC</color>
+    <color name="gray_100">#F1F5F9</color>
+    <color name="gray_200">#E2E8F0</color>
+    <color name="gray_300">#CBD5E1</color>
+    <color name="gray_400">#94A3B8</color>
+    <color name="gray_500">#64748B</color>
+    <color name="gray_600">#475569</color>
+    <color name="gray_700">#334155</color>
+    <color name="gray_800">#1E293B</color>
+    <color name="gray_900">#0F172A</color>
+
+    <!-- Primary Blue -->
+    <color name="blue_50">#EFF6FF</color>
+    <color name="blue_100">#DBEAFE</color>
+    <color name="blue_200">#BFDBFE</color>
+    <color name="blue_300">#93C5FD</color>
+    <color name="blue_400">#60A5FA</color>
+    <color name="blue_500">#3B82F6</color>
+    <color name="blue_600">#2563EB</color>
+    <color name="blue_700">#1D4ED8</color>
+    <color name="blue_800">#1E40AF</color>
+    <color name="blue_900">#1E3A5F</color>
+
+    <!-- Splash Dark -->
+    <color name="splash_dark_1">#0A0F1E</color>
+    <color name="splash_dark_2">#0D1B3E</color>
+    <color name="splash_dark_3">#060C1A</color>
+
+    <!-- Header Gradient -->
+    <color name="header_start">#1D4ED8</color>
+    <color name="header_end">#3B82F6</color>
+
+    <!-- Background -->
+    <color name="bg_start">#F0F5FF</color>
+    <color name="bg_end">#F8FAFF</color>
+
+    <!-- Card colors -->
+    <color name="card_blue_start">#60A5FA</color>
+    <color name="card_blue_end">#2563EB</color>
+    <color name="card_green_start">#34D399</color>
+    <color name="card_green_end">#059669</color>
+    <color name="card_orange_start">#FB923C</color>
+    <color name="card_orange_end">#EA580C</color>
+    <color name="card_purple_start">#A78BFA</color>
+    <color name="card_purple_end">#7C3AED</color>
+
+    <!-- Semantic Colors -->
+    <color name="green_500">#10B981</color>
+    <color name="green_600">#059669</color>
+    <color name="red_500">#EF4444</color>
+    <color name="red_600">#E11D48</color>
+    <color name="amber_500">#F59E0B</color>
+    <color name="amber_300">#FCD34D</color>
+
+    <!-- Map -->
+    <color name="map_bg_stop1">#EFF6FF</color>
+    <color name="map_bg_stop2">#DBEAFE</color>
+    <color name="nav_path_start">#3B82F6</color>
+    <color name="nav_path_end">#60A5FA</color>
+    
+    <!-- Shadows & Overlays -->
+    <color name="shadow_blue">#1A3B82F6</color>
+    <color name="shadow_dark">#141E293B</color>
+
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- 3D Building with navigation pin - matches splash SVG logo concept -->
+    <path
+        android:pathData="M12,2L4,7v10l8,5l8,-5V7L12,2z"
+        android:fillColor="#2563EB"
+        android:fillAlpha="0.2" />
+    <path
+        android:pathData="M12,2L4,7v10l8,5l8,-5V7L12,2z"
+        android:strokeColor="#3B82F6"
+        android:strokeWidth="1.5"
+        android:fillColor="@android:color/transparent" />
+    <path
+        android:pathData="M4,7l8,5l8,-5"
+        android:strokeColor="#3B82F6"
+        android:strokeWidth="1.5"
+        android:fillColor="@android:color/transparent" />
+    <path
+        android:pathData="M12,12v10"
+        android:strokeColor="#3B82F6"
+        android:strokeWidth="1.5"
+        android:fillColor="@android:color/transparent" />
+    <!-- Navigation pin -->
+    <path
+        android:pathData="M12,5m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"
+        android:fillColor="#60A5FA" />
+</vector>

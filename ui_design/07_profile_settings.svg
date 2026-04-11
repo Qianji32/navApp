@@ -1,0 +1,230 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="844" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F0F5FF"/>
+      <stop offset="100%" stop-color="#F8FAFF"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="390" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="avatarGrad" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="toggleOnGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="10" flood-color="#3B82F6" flood-opacity="0.08"/>
+    </filter>
+    <filter id="avatarShadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#1D4ED8" flood-opacity="0.35"/>
+    </filter>
+    <filter id="navShadow">
+      <feDropShadow dx="0" dy="-4" stdDeviation="12" flood-color="#1E293B" flood-opacity="0.08"/>
+    </filter>
+    <linearGradient id="premiumBadge" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FCD34D"/>
+    </linearGradient>
+    <linearGradient id="dangerGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#FEE2E2"/>
+      <stop offset="100%" stop-color="#FECACA"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND -->
+  <rect width="390" height="844" fill="url(#bg)" rx="40"/>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <path d="M0 0 L390 0 L390 228 Q390 256 360 256 L30 256 Q0 256 0 228 Z" fill="url(#headerGrad)"/>
+  <!-- Decorative circles -->
+  <circle cx="330" cy="50" r="90" fill="#FFFFFF" fill-opacity="0.04"/>
+  <circle cx="-20" cy="180" r="80" fill="#FFFFFF" fill-opacity="0.04"/>
+  <circle cx="280" cy="200" r="50" fill="#FFFFFF" fill-opacity="0.06"/>
+
+  <!-- STATUS BAR -->
+  <rect x="126" y="14" width="138" height="34" rx="22" fill="#000000"/>
+  <circle cx="239" cy="31" r="5.5" fill="#1A1A1A"/>
+  <circle cx="239" cy="31" r="3" fill="#0D0D0D"/>
+  <text x="40" y="34" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF">9:41</text>
+  <g opacity="0.85">
+    <rect x="340" y="23" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+    <rect x="362" y="26.5" width="2.5" height="4" rx="1" fill="#FFFFFF"/>
+    <rect x="341.5" y="24.5" width="16" height="8" rx="1.5" fill="#FFFFFF"/>
+    <rect x="297" y="29" width="3" height="5" rx="1" fill="#FFFFFF"/>
+    <rect x="302" y="27" width="3" height="7" rx="1" fill="#FFFFFF"/>
+    <rect x="307" y="25" width="3" height="9" rx="1" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Header title -->
+  <text x="195" y="82" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" text-anchor="middle">Profile</text>
+
+  <!-- Settings gear top right -->
+  <circle cx="354" cy="78" r="20" fill="#FFFFFF" fill-opacity="0.18"/>
+  <!-- Gear icon -->
+  <circle cx="354" cy="78" r="7" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="354" cy="78" r="3" fill="#FFFFFF"/>
+  <line x1="354" y1="68" x2="354" y2="65" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="354" y1="88" x2="354" y2="91" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="344" y1="78" x2="341" y2="78" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="364" y1="78" x2="367" y2="78" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="347" y1="71" x2="345" y2="69" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <line x1="361" y1="85" x2="363" y2="87" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <line x1="361" y1="71" x2="363" y2="69" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <line x1="347" y1="85" x2="345" y2="87" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- ═══════════════ AVATAR + USER INFO ═══════════════ -->
+  <!-- Avatar circle with shadow -->
+  <circle cx="195" cy="152" r="44" fill="#FFFFFF" filter="url(#avatarShadow)"/>
+  <circle cx="195" cy="152" r="40" fill="url(#avatarGrad)"/>
+  <!-- User initials / avatar placeholder -->
+  <text x="195" y="162" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF" text-anchor="middle">ZW</text>
+  <!-- Online indicator dot -->
+  <circle cx="223" cy="178" r="8" fill="#10B981" stroke="#FFFFFF" stroke-width="2.5"/>
+
+  <!-- Edit avatar button -->
+  <circle cx="223" cy="178" r="16" fill="#FFFFFF" fill-opacity="0" stroke="transparent"/>
+  <rect x="217" y="125" width="24" height="24" rx="12" fill="#FFFFFF" opacity="0.95"/>
+  <!-- Camera icon -->
+  <rect x="220" y="128" width="18" height="14" rx="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+  <circle cx="229" cy="135" r="3.5" fill="none" stroke="#3B82F6" stroke-width="1.2"/>
+  <rect x="227" y="127" width="6" height="4" rx="1" fill="none" stroke="#3B82F6" stroke-width="1.2"/>
+
+  <!-- User name and details -->
+  <text x="195" y="213" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" text-anchor="middle">Zhang Wei</text>
+  <text x="195" y="233" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="14" fill="#BFDBFE" text-anchor="middle">zhang.wei@bupt.edu.cn</text>
+
+  <!-- Premium badge -->
+  <rect x="158" y="244" width="74" height="22" rx="11" fill="url(#premiumBadge)"/>
+  <text x="195" y="259" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" font-weight="700" fill="#78350F" text-anchor="middle">✦  Premium</text>
+
+  <!-- ═══════════════ SECTION: ACCESSIBILITY ═══════════════ -->
+  <text x="24" y="294" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="600" fill="#94A3B8" letter-spacing="1">ACCESSIBILITY</text>
+
+  <!-- Card -->
+  <rect x="20" y="304" width="350" height="124" rx="20" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+  <!-- Wheelchair Route row -->
+  <rect x="36" y="318" width="32" height="32" rx="12" fill="#EFF6FF"/>
+  <text x="52" y="338" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#3B82F6">♿</text>
+  <text x="82" y="332" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="500" fill="#1E293B">Wheelchair Route</text>
+  <text x="82" y="350" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8">Prefer accessible paths</text>
+  <!-- Toggle OFF -->
+  <rect x="306" y="324" width="44" height="24" rx="12" fill="#E2E8F0"/>
+  <circle cx="324" cy="336" r="10" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+  <!-- Separator -->
+  <line x1="36" y1="373" x2="354" y2="373" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- Large text mode row -->
+  <rect x="36" y="382" width="32" height="32" rx="12" fill="#FFF7ED"/>
+  <text x="52" y="402" font-family="'SF Pro Display', sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#EA580C">A+</text>
+  <text x="82" y="397" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="500" fill="#1E293B">Large Text Mode</text>
+  <text x="82" y="415" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8">Increase UI text size</text>
+  <!-- Toggle ON -->
+  <rect x="306" y="390" width="44" height="24" rx="12" fill="url(#toggleOnGrad)"/>
+  <circle cx="338" cy="402" r="10" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+  <!-- ═══════════════ SECTION: MAPS & DATA ═══════════════ -->
+  <text x="24" y="452" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="600" fill="#94A3B8" letter-spacing="1">MAPS &amp; DATA</text>
+
+  <rect x="20" y="462" width="350" height="130" rx="20" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+  <!-- Offline map row -->
+  <rect x="36" y="476" width="32" height="32" rx="12" fill="#F0FDF4"/>
+  <!-- Download cloud icon -->
+  <path d="M45 488 C43 488 41 490 41 492 C41 494 43 496 45 496 L59 496 C61 496 63 494 63 492 C63 490 61 488 59 488 C59 484 56 481 52 481 C48 481 45 484 45 488 Z" fill="none" stroke="#10B981" stroke-width="1.5"/>
+  <line x1="52" y1="490" x2="52" y2="498" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="49,496 52,499 55,496" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="82" y="490" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="500" fill="#1E293B">Offline Map</text>
+  <text x="82" y="508" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8">Download campus for offline use</text>
+  <!-- Download progress mini -->
+  <rect x="244" y="492" width="90" height="5" rx="2.5" fill="#D1FAE5"/>
+  <rect x="244" y="492" width="54" height="5" rx="2.5" fill="#10B981"/>
+  <text x="341" y="500" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" fill="#10B981" text-anchor="end">60%</text>
+
+  <!-- Separator -->
+  <line x1="36" y1="533" x2="354" y2="533" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- Language row -->
+  <rect x="36" y="542" width="32" height="32" rx="12" fill="#EFF6FF"/>
+  <text x="52" y="562" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#3B82F6">🌐</text>
+  <text x="82" y="556" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="500" fill="#1E293B">Language</text>
+  <text x="82" y="574" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8">English</text>
+  <!-- Chevron -->
+  <path d="M346 556 L352 562 L346 568" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- ═══════════════ SECTION: APPEARANCE ═══════════════ -->
+  <text x="24" y="618" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="600" fill="#94A3B8" letter-spacing="1">APPEARANCE</text>
+
+  <rect x="20" y="628" width="350" height="68" rx="20" fill="#FFFFFF" filter="url(#cardShadow)"/>
+  <!-- Dark mode row -->
+  <rect x="36" y="642" width="32" height="32" rx="12" fill="#F5F3FF"/>
+  <text x="52" y="662" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#7C3AED">🌙</text>
+  <text x="82" y="656" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="500" fill="#1E293B">Dark Mode</text>
+  <text x="82" y="674" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8">Switch interface theme</text>
+  <!-- Toggle OFF -->
+  <rect x="306" y="650" width="44" height="24" rx="12" fill="#E2E8F0"/>
+  <circle cx="324" cy="662" r="10" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+  <!-- ═══════════════ SECTION: SUPPORT ═══════════════ -->
+  <text x="24" y="722" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="600" fill="#94A3B8" letter-spacing="1">SUPPORT</text>
+
+  <rect x="20" y="730" width="350" height="68" rx="20" fill="#FFFFFF" filter="url(#cardShadow)"/>
+  <!-- Help row -->
+  <rect x="36" y="744" width="32" height="32" rx="12" fill="#FFF7ED"/>
+  <text x="52" y="764" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#EA580C">💬</text>
+  <text x="82" y="758" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="500" fill="#1E293B">Help Center</text>
+  <text x="82" y="776" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8">FAQs, tutorials, contact support</text>
+  <path x="346" y="752" d="M346 756 L352 762 L346 768" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- ══════════════════════ BOTTOM NAVIGATION ══════════════════════ -->
+  <rect x="0" y="750" width="390" height="94" fill="#FFFFFF" filter="url(#navShadow)"/>
+  <rect x="0" y="750" width="390" height="2" fill="#F1F5F9"/>
+
+  <g opacity="0.45">
+    <path d="M48 766 L36 775 L36 790 L44 790 L44 782 L52 782 L52 790 L60 790 L60 775 Z" fill="#64748B"/>
+    <text x="48" y="806" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" font-weight="500" fill="#64748B" text-anchor="middle">Home</text>
+  </g>
+
+  <g opacity="0.45">
+    <path d="M124 767 L114 771 L114 789 L124 785 L134 789 L144 785 L144 767 L134 771 Z" fill="#64748B"/>
+    <circle cx="129" cy="775" r="3" fill="#64748B"/>
+    <text x="134" y="806" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" font-weight="500" fill="#64748B" text-anchor="middle">Map</text>
+  </g>
+
+  <!-- AR tab center -->
+  <circle cx="195" cy="766" r="30" fill="#3B82F6"/>
+  <circle cx="195" cy="766" r="26" fill="#2563EB"/>
+  <rect x="183" y="756" width="24" height="18" rx="4" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="195" cy="765" r="5" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  <rect x="191" y="753" width="8" height="4" rx="1.5" fill="#FFFFFF"/>
+  <text x="195" y="808" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" font-weight="600" fill="#3B82F6" text-anchor="middle">AR</text>
+
+  <g opacity="0.45">
+    <path d="M256 767 Q256 773 260 776 Q264 779 264 785" stroke="#64748B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M272 785 Q272 779 268 776 Q264 773 264 767" stroke="#64748B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <circle cx="256" cy="767" r="3" fill="#64748B"/>
+    <circle cx="272" cy="785" r="3" fill="#64748B"/>
+    <text x="264" y="806" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" font-weight="500" fill="#64748B" text-anchor="middle">Route</text>
+  </g>
+
+  <!-- Profile tab (active) -->
+  <circle cx="342" cy="778" r="24" fill="#EFF6FF"/>
+  <circle cx="342" cy="770" r="7" fill="#3B82F6"/>
+  <path d="M329 790 Q329 782 342 782 Q355 782 355 790" fill="#3B82F6" stroke="#3B82F6" stroke-width="0.5"/>
+  <text x="342" y="806" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" font-weight="600" fill="#3B82F6" text-anchor="middle">Profile</text>
+
+  <!-- ═══════════════ APP VERSION (below nav, subtle) ═══════════════ -->
+  <!-- Version appears above bottom nav -->
+  <text x="195" y="745" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#CBD5E1" text-anchor="middle">IndoorNav v1.0.0 · Build 2026.03</text>
+
+  <!-- Home indicator -->
+  <rect x="153" y="832" width="84" height="5" rx="2.5" fill="#1E293B" opacity="0.2"/>
+
+  <!-- Device frame -->
+  <rect width="390" height="844" rx="40" fill="none" stroke="#CBD5E1" stroke-width="1.5" opacity="0.5"/>
+</svg>

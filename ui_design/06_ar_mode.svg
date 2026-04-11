@@ -1,0 +1,237 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Camera/scene background: indoor corridor perspective -->
+    <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#C8D8E8"/>
+      <stop offset="100%" stop-color="#9EB5CC"/>
+    </linearGradient>
+    <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#E8EFF7"/>
+      <stop offset="100%" stop-color="#D0DDE9"/>
+    </linearGradient>
+    <linearGradient id="ceilingGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#F5F8FC"/>
+      <stop offset="100%" stop-color="#E3EAF3"/>
+    </linearGradient>
+    <!-- AR arrow gradient -->
+    <linearGradient id="arArrowGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#93C5FD"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <!-- AR path on floor -->
+    <linearGradient id="arPathGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#1D4ED8" stop-opacity="0.7"/>
+    </linearGradient>
+    <!-- Glowing edge -->
+    <linearGradient id="edgeGlowGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#3B82F6" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.5"/>
+    </linearGradient>
+    <!-- Frosted glass bottom bar -->
+    <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+    </linearGradient>
+    <!-- Destination label panel -->
+    <linearGradient id="destLabelGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#1D4ED8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="glowFilter">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="arrowGlowFilter">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#1E293B" flood-opacity="0.3"/>
+    </filter>
+    <filter id="labelGlow">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <clipPath id="screenClip">
+      <rect width="390" height="844" rx="40"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#screenClip)">
+
+  <!-- ═══════════════ CAMERA SCENE (Indoor Corridor Perspective) ═══════════════ -->
+  <!-- Ceiling -->
+  <polygon points="0,0 390,0 260,340 130,340" fill="url(#ceilingGrad)"/>
+  <!-- Left wall -->
+  <polygon points="0,0 130,340 130,620 0,740" fill="#D4DFE9"/>
+  <!-- Right wall -->
+  <polygon points="390,0 260,340 260,620 390,740" fill="#D4DFE9"/>
+  <!-- Floor  -->
+  <polygon points="0,740 130,620 260,620 390,740 390,844 0,844" fill="url(#floorGrad)"/>
+  <!-- Back wall (corridor end) -->
+  <polygon points="130,340 260,340 260,620 130,620" fill="#EAF0F8"/>
+
+  <!-- Wall tiles / panels (left wall) -->
+  <line x1="0" y1="200" x2="130" y2="380" stroke="#BDCBD9" stroke-width="0.8" opacity="0.5"/>
+  <line x1="0" y1="400" x2="130" y2="460" stroke="#BDCBD9" stroke-width="0.8" opacity="0.5"/>
+  <line x1="0" y1="560" x2="130" y2="530" stroke="#BDCBD9" stroke-width="0.8" opacity="0.5"/>
+  <!-- Wall tiles (right wall) -->
+  <line x1="390" y1="200" x2="260" y2="380" stroke="#BDCBD9" stroke-width="0.8" opacity="0.5"/>
+  <line x1="390" y1="400" x2="260" y2="460" stroke="#BDCBD9" stroke-width="0.8" opacity="0.5"/>
+  <line x1="390" y1="560" x2="260" y2="530" stroke="#BDCBD9" stroke-width="0.8" opacity="0.5"/>
+  <!-- Ceiling lights -->
+  <rect x="170" y="0" width="50" height="6" rx="3" fill="#FFFFFF" opacity="0.9"/>
+  <rect x="170" y="0" width="50" height="60" rx="0" fill="#FFFFFF" fill-opacity="0.1"/>
+  <line x1="175" y1="0" x2="155" y2="340" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="20"/>
+  <line x1="215" y1="0" x2="235" y2="340" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="20"/>
+  <!-- Floor tiles perspective grid -->
+  <g opacity="0.3">
+    <line x1="0" y1="740" x2="130" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="45" y1="844" x2="142" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="93" y1="844" x2="155" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="142" y1="844" x2="167" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="195" y1="844" x2="195" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="248" y1="844" x2="223" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="297" y1="844" x2="235" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="345" y1="844" x2="248" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="390" y1="740" x2="260" y2="620" stroke="#B0C2D0" stroke-width="0.7"/>
+    <!-- Horizontal depth lines on floor -->
+    <line x1="0" y1="740" x2="390" y2="740" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="16" y1="700" x2="374" y2="700" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="38" y1="668" x2="352" y2="668" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="66" y1="642" x2="324" y2="642" stroke="#B0C2D0" stroke-width="0.7"/>
+    <line x1="98" y1="622" x2="292" y2="622" stroke="#B0C2D0" stroke-width="0.7"/>
+  </g>
+
+  <!-- ─── Door on back wall ─── -->
+  <rect x="160" y="432" width="70" height="188" rx="4" fill="#CCD8E2" stroke="#B0C2D0" stroke-width="1.5"/>
+  <rect x="162" y="434" width="66" height="184" rx="3" fill="#D8E4EE"/>
+  <!-- Door handle -->
+  <rect x="217" y="518" width="8" height="3" rx="1.5" fill="#B0C2D0"/>
+  <!-- Room number sign -->
+  <rect x="176" y="440" width="38" height="18" rx="4" fill="#3B82F6" opacity="0.9"/>
+  <text x="195" y="452" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">401</text>
+
+  <!-- ═══════════════ AR PATH ON FLOOR (perspective stripes) ═══════════════ -->
+  <!-- Wide glow below -->
+  <polygon points="160,844 230,844 230,640 200,620 190,620 160,640" fill="#3B82F6" fill-opacity="0.1"/>
+  <!-- Center path -->
+  <polygon points="178,844 212,844 208,640 196,620 194,620 182,640" fill="url(#arPathGrad)" fill-opacity="0.85"/>
+  <!-- Animated dashes effect (cross lines on path) -->
+  <line x1="180" y1="780" x2="210" y2="780" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.7"/>
+  <line x1="183" y1="740" x2="207" y2="740" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="186" y1="706" x2="204" y2="706" stroke="#FFFFFF" stroke-width="1.5" stroke-opacity="0.5"/>
+  <line x1="189" y1="676" x2="201" y2="676" stroke="#FFFFFF" stroke-width="1.2" stroke-opacity="0.4"/>
+  <line x1="191" y1="650" x2="199" y2="650" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.3"/>
+  <line x1="192" y1="633" x2="198" y2="633" stroke="#FFFFFF" stroke-width="0.8" stroke-opacity="0.25"/>
+
+  <!-- ═══════════════ AR FLOATING ARROWS ═══════════════ -->
+  <!-- Arrow 1: large, close (bottom) -->
+  <g filter="url(#arrowGlowFilter)">
+    <polygon points="195,548 162,608 178,600 178,618 212,618 212,600 228,608" fill="url(#arArrowGrad)" opacity="0.95"/>
+    <!-- Arrow border -->
+    <polygon points="195,548 162,608 178,600 178,618 212,618 212,600 228,608" fill="none" stroke="#93C5FD" stroke-width="1.5" opacity="0.7"/>
+  </g>
+
+  <!-- Arrow 2: medium, midfield -->
+  <g filter="url(#arrowGlowFilter)" opacity="0.8">
+    <polygon points="195,430 177,464 185,460 185,474 205,474 205,460 213,464" fill="url(#arArrowGrad)" opacity="0.85"/>
+  </g>
+
+  <!-- Arrow 3: small, far -->
+  <g filter="url(#arrowGlowFilter)" opacity="0.6">
+    <polygon points="195,362 183,386 189,383 189,393 201,393 201,383 207,386" fill="url(#arArrowGrad)" opacity="0.7"/>
+  </g>
+
+  <!-- ═══════════════ AR DESTINATION LABEL (floating in space) ═══════════════ -->
+  <!-- Label container with glow -->
+  <g filter="url(#labelGlow)">
+    <rect x="128" y="392" width="134" height="36" rx="18" fill="url(#destLabelGrad)"/>
+    <rect x="128" y="392" width="134" height="36" rx="18" fill="none" stroke="#93C5FD" stroke-width="1.5" opacity="0.6"/>
+  </g>
+  <!-- Pin icon on label -->
+  <circle cx="148" cy="410" r="6" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="148" cy="410" r="3.5" fill="#FFFFFF"/>
+  <text x="218" y="415" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Room 401</text>
+  <!-- Connector line from label to floor -->
+  <line x1="195" y1="428" x2="195" y2="470" stroke="#60A5FA" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+  <circle cx="195" cy="472" r="3" fill="#60A5FA" opacity="0.6"/>
+
+  <!-- Distance floating label -->
+  <rect x="148" y="500" width="94" height="28" rx="14" fill="#1D4ED8" fill-opacity="0.88" stroke="#60A5FA" stroke-width="1" filter="url(#glowFilter)"/>
+  <text x="195" y="518" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">38 m away</text>
+
+  <!-- ═══════════════ GLOWING SCREEN EDGES ═══════════════ -->
+  <rect x="0" y="0" width="6" height="844" fill="#3B82F6" opacity="0.2"/>
+  <rect x="384" y="0" width="6" height="844" fill="#3B82F6" opacity="0.2"/>
+  <rect x="0" y="0" width="390" height="6" fill="#3B82F6" opacity="0.15"/>
+  <!-- Edge gradient left -->
+  <rect x="0" y="0" width="40" height="844" fill="url(#edgeGlowGrad)" opacity="0.3"/>
+  <rect x="350" y="0" width="40" height="844" fill="url(#edgeGlowGrad)" opacity="0.3"/>
+
+  <!-- ═══════════════ TOP UI OVERLAYS ═══════════════ -->
+  <!-- STATUS BAR with dark overlay behind it -->
+  <rect x="0" y="0" width="390" height="58" fill="#000000" fill-opacity="0.35"/>
+  <rect x="126" y="14" width="138" height="34" rx="22" fill="#000000"/>
+  <circle cx="239" cy="31" r="5.5" fill="#1A1A1A"/>
+  <circle cx="239" cy="31" r="3" fill="#0D0D0D"/>
+  <text x="40" y="34" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF">9:41</text>
+  <g opacity="0.8">
+    <rect x="340" y="23" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+    <rect x="362" y="26.5" width="2.5" height="4" rx="1" fill="#FFFFFF"/>
+    <rect x="341.5" y="24.5" width="16" height="8" rx="1.5" fill="#FFFFFF"/>
+    <rect x="297" y="29" width="3" height="5" rx="1" fill="#FFFFFF"/>
+    <rect x="302" y="27" width="3" height="7" rx="1" fill="#FFFFFF"/>
+    <rect x="307" y="25" width="3" height="9" rx="1" fill="#FFFFFF"/>
+  </g>
+
+  <!-- AR mode indicator badge -->
+  <rect x="24" y="66" width="76" height="28" rx="14" fill="#3B82F6" filter="url(#glowFilter)"/>
+  <circle cx="38" cy="80" r="4" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="38" cy="80" r="2" fill="#FFFFFF"/>
+  <text x="60" y="85" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">AR ON</text>
+
+  <!-- Exit AR button -->
+  <rect x="290" y="66" width="76" height="28" rx="14" fill="#000000" fill-opacity="0.5" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="328" y="83" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF" text-anchor="middle">✕  Exit AR</text>
+
+  <!-- Floor indicator floating top -->
+  <rect x="152" y="68" width="86" height="28" rx="14" fill="#000000" fill-opacity="0.5"/>
+  <text x="195" y="85" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF" text-anchor="middle">📍  Floor 1</text>
+
+  <!-- ═══════════════ BOTTOM FROSTED GLASS PANEL ═══════════════ -->
+  <!-- Blur overlay -->
+  <rect x="0" y="730" width="390" height="114" fill="#000000" fill-opacity="0.45" rx="0"/>
+  <!-- Glass border top -->
+  <line x1="0" y1="730" x2="390" y2="730" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+  <!-- Content -->
+  <text x="24" y="760" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Turn Right  ↱  in 38 m</text>
+  <!-- Mini progress -->
+  <rect x="24" y="772" width="250" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.15"/>
+  <rect x="24" y="772" width="162" height="5" rx="2.5" fill="#3B82F6"/>
+  <text x="285" y="778" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#93C5FD">65%</text>
+  <!-- ETA pill -->
+  <rect x="24" y="786" width="100" height="26" rx="13" fill="#3B82F6" fill-opacity="0.9"/>
+  <text x="74" y="803" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF" text-anchor="middle">ETA 1:42 min</text>
+  <!-- Distance pill -->
+  <rect x="134" y="786" width="84" height="26" rx="13" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="1"/>
+  <text x="176" y="803" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="500" fill="#FFFFFF" text-anchor="middle">50 m left</text>
+  <!-- Dest label -->
+  <text x="24" y="820" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#93C5FD">→  Room 401, Building A, Floor 1</text>
+
+  <!-- Home indicator -->
+  <rect x="153" y="832" width="84" height="5" rx="2.5" fill="#FFFFFF" opacity="0.4"/>
+
+  </g>
+
+  <!-- Device frame -->
+  <rect width="390" height="844" rx="40" fill="none" stroke="#CBD5E1" stroke-width="1.5" opacity="0.5"/>
+</svg>

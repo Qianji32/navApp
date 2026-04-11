@@ -1,0 +1,185 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient: deep space blue -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="390" y2="844" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0A0F1E"/>
+      <stop offset="50%" stop-color="#0D1B3E"/>
+      <stop offset="100%" stop-color="#060C1A"/>
+    </linearGradient>
+    <!-- Ambient glow -->
+    <radialGradient id="glowCenter" cx="50%" cy="50%" r="40%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Logo inner gradient -->
+    <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <!-- Logo glow -->
+    <radialGradient id="logoGlow" cx="50%" cy="50%" r="50%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Grid line gradient (fade) -->
+    <linearGradient id="gridFadeV" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#3B82F6" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gridFadeH" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#3B82F6" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Loading bar gradient -->
+    <linearGradient id="loadGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <!-- Icon shadow filter -->
+    <filter id="logoBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="24" result="blur"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- Path dot glow -->
+    <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- BACKGROUND -->
+  <!-- ═══════════════════════════════════════ -->
+  <rect width="390" height="844" fill="url(#bgGrad)" rx="40"/>
+
+  <!-- ─── Perspective Floor Grid ─── -->
+  <!-- Horizon line at y=560, vanishing point at (195, 560) -->
+  <!-- Vertical perspective lines -->
+  <g opacity="0.4">
+    <line x1="195" y1="560" x2="-60" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+    <line x1="195" y1="560" x2="30" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+    <line x1="195" y1="560" x2="110" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+    <line x1="195" y1="560" x2="152" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+    <line x1="195" y1="560" x2="195" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+    <line x1="195" y1="560" x2="238" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+    <line x1="195" y1="560" x2="280" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+    <line x1="195" y1="560" x2="360" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+    <line x1="195" y1="560" x2="450" y2="844" stroke="url(#gridFadeV)" stroke-width="0.8"/>
+  </g>
+  <!-- Horizontal lines (perspective rows) -->
+  <g opacity="0.3">
+    <line x1="0" y1="844" x2="390" y2="844" stroke="#3B82F6" stroke-width="0.6"/>
+    <line x1="28" y1="800" x2="362" y2="800" stroke="#3B82F6" stroke-width="0.5"/>
+    <line x1="60" y1="756" x2="330" y2="756" stroke="#3B82F6" stroke-width="0.5"/>
+    <line x1="90" y1="718" x2="300" y2="718" stroke="#3B82F6" stroke-width="0.4"/>
+    <line x1="118" y1="686" x2="272" y2="686" stroke="#3B82F6" stroke-width="0.4"/>
+    <line x1="143" y1="658" x2="247" y2="658" stroke="#3B82F6" stroke-width="0.3"/>
+    <line x1="163" y1="634" x2="227" y2="634" stroke="#3B82F6" stroke-width="0.3"/>
+    <line x1="178" y1="614" x2="212" y2="614" stroke="#3B82F6" stroke-width="0.2"/>
+  </g>
+
+  <!-- ─── Central Ambient Glow ─── -->
+  <ellipse cx="195" cy="422" rx="200" ry="200" fill="url(#glowCenter)" opacity="0.8"/>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- LOGO AREA (centered at 195, 382) -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <!-- Logo outer glow halo -->
+  <circle cx="195" cy="382" r="72" fill="url(#logoGlow)" filter="url(#logoBlur)" opacity="0.9"/>
+
+  <!-- Logo outer ring -->
+  <circle cx="195" cy="382" r="58" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.4"/>
+  <circle cx="195" cy="382" r="52" fill="none" stroke="#3B82F6" stroke-width="0.8" stroke-opacity="0.25"/>
+
+  <!-- Logo background plate -->
+  <rect x="163" y="350" width="64" height="64" rx="20" fill="#0D1B3E" stroke="#2563EB" stroke-width="1.5" opacity="0.95"/>
+  <!-- Logo plate inner glow -->
+  <rect x="163" y="350" width="64" height="64" rx="20" fill="url(#logoGrad)" opacity="0.12"/>
+
+  <!-- 3D Building Icon inside logo -->
+  <!-- Base floor -->
+  <polygon points="195,394 175,383 195,372 215,383" fill="#1E40AF" stroke="#60A5FA" stroke-width="0.8" stroke-linejoin="round"/>
+  <!-- Left wall -->
+  <polygon points="175,383 175,373 195,362 195,372" fill="#2563EB" stroke="#60A5FA" stroke-width="0.8" stroke-linejoin="round"/>
+  <!-- Right wall -->
+  <polygon points="215,383 215,373 195,362 195,372" fill="#3B82F6" stroke="#60A5FA" stroke-width="0.8" stroke-linejoin="round"/>
+  <!-- Roof top -->
+  <polygon points="195,362 175,373 195,384 215,373" fill="#60A5FA" stroke="#93C5FD" stroke-width="0.6" stroke-linejoin="round"/>
+  <!-- Windows dots -->
+  <rect x="180" y="375" width="4" height="4" rx="1" fill="#93C5FD" opacity="0.9"/>
+  <rect x="188" y="375" width="4" height="4" rx="1" fill="#93C5FD" opacity="0.7"/>
+  <!-- Navigation pin on top -->
+  <circle cx="195" cy="357" r="4" fill="#60A5FA"/>
+  <circle cx="195" cy="357" r="2" fill="#FFFFFF"/>
+  <!-- Pin tail -->
+  <path d="M195 361 L193 365 L195 363 L197 365 Z" fill="#60A5FA"/>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- APP NAME -->
+  <!-- ═══════════════════════════════════════ -->
+  <text x="195" y="470" font-family="'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" font-size="30" font-weight="700" fill="#F0F6FF" text-anchor="middle" letter-spacing="2">IndoorNav</text>
+
+  <!-- Tagline -->
+  <text x="195" y="500" font-family="'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" font-size="14" font-weight="300" fill="#93C5FD" text-anchor="middle" letter-spacing="1.5">Navigate Indoors with Precision</text>
+
+  <!-- Decorative line under tagline -->
+  <line x1="155" y1="514" x2="235" y2="514" stroke="#3B82F6" stroke-width="0.8" stroke-opacity="0.5"/>
+  <circle cx="195" cy="514" r="2" fill="#60A5FA"/>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- VERSION LABEL -->
+  <!-- ═══════════════════════════════════════ -->
+  <text x="195" y="550" font-family="'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="400" fill="#60A5FA" text-anchor="middle" opacity="0.6" letter-spacing="1">v1.0.0</text>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- LOADING INDICATOR -->
+  <!-- ═══════════════════════════════════════ -->
+  <!-- Loading track -->
+  <rect x="145" y="782" width="100" height="3" rx="2" fill="#1E3A5F" opacity="0.8"/>
+  <!-- Loading fill (60% progress) -->
+  <rect x="145" y="782" width="62" height="3" rx="2" fill="url(#loadGrad)"/>
+  <!-- Loading label -->
+  <text x="195" y="800" font-family="'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="400" fill="#60A5FA" text-anchor="middle" opacity="0.7" letter-spacing="0.8">Loading...</text>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- BOTTOM SAFE AREA INDICATOR (Home Bar) -->
+  <!-- ═══════════════════════════════════════ -->
+  <rect x="153" y="824" width="84" height="5" rx="2.5" fill="#FFFFFF" opacity="0.2"/>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- STATUS BAR -->
+  <!-- ═══════════════════════════════════════ -->
+  <!-- Dynamic Island -->
+  <rect x="126" y="14" width="138" height="34" rx="22" fill="#000000"/>
+  <!-- Camera dot -->
+  <circle cx="239" cy="31" r="5.5" fill="#1A1A1A"/>
+  <circle cx="239" cy="31" r="3" fill="#0D0D0D"/>
+  <!-- Time -->
+  <text x="40" y="34" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" opacity="0.85">9:41</text>
+  <!-- Battery / Signal (right side) -->
+  <g opacity="0.7">
+    <!-- Battery -->
+    <rect x="340" y="23" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+    <rect x="362" y="26.5" width="2.5" height="4" rx="1" fill="#FFFFFF"/>
+    <rect x="341.5" y="24.5" width="16" height="8" rx="1.5" fill="#FFFFFF"/>
+    <!-- WiFi signal -->
+    <g transform="translate(315, 22)">
+      <path d="M8,11 Q8,5 14,5 Q20,5 20,11" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M10,11 Q10,7 14,7 Q18,7 18,11" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"/>
+      <circle cx="14" cy="11" r="1.5" fill="#FFFFFF"/>
+    </g>
+    <!-- Signal bars -->
+    <rect x="297" y="29" width="3" height="5" rx="1" fill="#FFFFFF"/>
+    <rect x="302" y="27" width="3" height="7" rx="1" fill="#FFFFFF"/>
+    <rect x="307" y="25" width="3" height="9" rx="1" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Corner radius mask for device frame -->
+  <rect width="390" height="844" rx="40" fill="none" stroke="#1E293B" stroke-width="2" opacity="0.3"/>
+</svg>

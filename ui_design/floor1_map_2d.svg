@@ -1,0 +1,699 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1440" height="780"
+  viewBox="0 0 1440 780"
+  font-family="'Roboto','Helvetica Neue',Arial,sans-serif">
+
+  <defs>
+    <!-- Stairwell hatch pattern -->
+    <pattern id="stairHatch" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#C9BEB0" stroke-width="1.5"/>
+    </pattern>
+    <!-- Escalator chevron pattern -->
+    <pattern id="escPattern" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+      <path d="M0 14 L7 7 L14 14" fill="none" stroke="#4A90D9" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+    </pattern>
+    <!-- Outer wall shadow/depth -->
+    <filter id="wallDepth" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#7A6F60" flood-opacity="0.25"/>
+    </filter>
+    <!-- Entrance glow -->
+    <filter id="entryGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#3DB860" flood-opacity="0.5"/>
+    </filter>
+    <!-- Room hover shadow -->
+    <filter id="roomShadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#9A8E7E" flood-opacity="0.25"/>
+    </filter>
+    <!-- Compass shadow -->
+    <filter id="compassShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+    <!-- clip main building -->
+    <clipPath id="buildingClip">
+      <path d="
+        M78,68 L206,68 L206,68 L531,68
+        L531,68 L659,68 L1382,68
+        L1382,300 L1382,373 L1382,632
+        L938,632 L938,680 L820,680 L820,632
+        L78,632 Z
+      "/>
+    </clipPath>
+    <!-- Arrow marker for corridors -->
+    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#4A90D9"/>
+    </marker>
+  </defs>
+
+  <!-- ─────────────────────────────────────────
+       1. OUTDOOR BACKGROUND
+  ───────────────────────────────────────── -->
+  <rect width="1440" height="780" fill="#E8E3D5"/>
+
+  <!-- Road markings around building -->
+  <!-- North road -->
+  <rect x="0" y="0" width="1440" height="68" fill="#DEDAD2"/>
+  <line x1="0" y1="34" x2="1440" y2="34" stroke="#C8C3BB" stroke-width="1" stroke-dasharray="30,20"/>
+  <!-- South road -->
+  <rect x="0" y="680" width="1440" height="100" fill="#DEDAD2"/>
+  <line x1="0" y1="720" x2="1440" y2="720" stroke="#C8C3BB" stroke-width="1" stroke-dasharray="30,20"/>
+  <!-- West road -->
+  <rect x="0" y="0" width="78" height="780" fill="#DEDAD2"/>
+  <!-- East road -->
+  <rect x="1382" y="0" width="58" height="780" fill="#DEDAD2"/>
+
+  <!-- Outdoor tree clusters -->
+  <!-- North plaza -->
+  <circle cx="190" cy="34" r="14" fill="#8BC34A" opacity="0.7"/>
+  <circle cx="190" cy="34" r="9" fill="#7CB342" opacity="0.6"/>
+  <circle cx="420" cy="34" r="12" fill="#8BC34A" opacity="0.65"/>
+  <circle cx="420" cy="34" r="7.5" fill="#7CB342" opacity="0.55"/>
+  <circle cx="900" cy="34" r="13" fill="#8BC34A" opacity="0.7"/>
+  <circle cx="900" cy="34" r="8" fill="#7CB342" opacity="0.6"/>
+  <circle cx="1200" cy="34" r="12" fill="#8BC34A" opacity="0.65"/>
+  <circle cx="1200" cy="34" r="7.5" fill="#7CB342" opacity="0.55"/>
+  <!-- South plaza trees -->
+  <circle cx="480" cy="716" r="13" fill="#8BC34A" opacity="0.7"/>
+  <circle cx="480" cy="716" r="8" fill="#7CB342" opacity="0.6"/>
+  <circle cx="700" cy="720" r="14" fill="#8BC34A" opacity="0.65"/>
+  <circle cx="700" cy="720" r="9" fill="#7CB342" opacity="0.55"/>
+  <circle cx="1100" cy="716" r="12" fill="#8BC34A" opacity="0.65"/>
+  <circle cx="1100" cy="716" r="7.5" fill="#7CB342" opacity="0.55"/>
+
+  <!-- ─────────────────────────────────────────
+       2. BUILDING BASE FILL
+  ───────────────────────────────────────── -->
+  <!-- Main building fill  -->
+  <path d="
+    M78,68 L1382,68 L1382,632
+    L938,632 L938,680 L820,680 L820,632
+    L78,632 Z
+  " fill="#F8F5F0" filter="url(#wallDepth)"/>
+
+  <!-- ─────────────────────────────────────────
+       3. MAIN CORRIDOR (horizontal hallway)
+  ───────────────────────────────────────── -->
+  <rect x="78" y="300" width="1304" height="73" fill="#EDE8DF"/>
+  <!-- Corridor center line (navigation hint) -->
+  <line x1="130" y1="336" x2="1330" y2="336" stroke="#D4CFC6" stroke-width="1" stroke-dasharray="12,8" opacity="0.6"/>
+  <!-- Corridor label -->
+  <text x="300" y="342" font-size="10" fill="#9A8E7E" letter-spacing="2" text-anchor="middle" font-weight="500">MAIN CORRIDOR</text>
+  <text x="1150" y="342" font-size="10" fill="#9A8E7E" letter-spacing="2" text-anchor="middle" font-weight="500">MAIN CORRIDOR</text>
+
+  <!-- ─────────────────────────────────────────
+       4. NORTH SIDE ROOMS  (y: 68–300, h=232)
+  ───────────────────────────────────────── -->
+
+  <!-- ── WEST WING NORTH (121, 122, 120, 118, 117, 116) ── -->
+
+  <!-- Room 121: upper-left corner (lager, separate zone) -->
+  <rect x="78" y="68" width="128" height="130" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="142" y="125" font-size="13" font-weight="600" fill="#4A4035" text-anchor="middle">121</text>
+  <text x="142" y="141" font-size="9" fill="#8A7E70" text-anchor="middle">Office</text>
+
+  <!-- Room 122: below 121, adjacent to west gate -->
+  <rect x="78" y="198" width="128" height="102" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="142" y="251" font-size="13" font-weight="600" fill="#4A4035" text-anchor="middle">122</text>
+  <text x="142" y="267" font-size="9" fill="#8A7E70" text-anchor="middle">Office</text>
+
+  <!-- Room 120 -->
+  <rect x="206" y="68" width="95" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="253" y="177" font-size="13" font-weight="600" fill="#4A4035" text-anchor="middle">120</text>
+  <text x="253" y="193" font-size="9" fill="#8A7E70" text-anchor="middle">Classroom</text>
+
+  <!-- Room 118 -->
+  <rect x="301" y="68" width="95" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="348" y="177" font-size="13" font-weight="600" fill="#4A4035" text-anchor="middle">118</text>
+  <text x="348" y="193" font-size="9" fill="#8A7E70" text-anchor="middle">Classroom</text>
+
+  <!-- Room 117 -->
+  <rect x="396" y="68" width="70" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="431" y="177" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">117</text>
+  <text x="431" y="193" font-size="9" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 116 -->
+  <rect x="466" y="68" width="65" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="498" y="177" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">116</text>
+  <text x="498" y="193" font-size="9" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- ── NORTH GATE STAIRWELL + Room 115 + 114 ── -->
+
+  <!-- Stairwell (upper part near north gate) -->
+  <rect x="531" y="68" width="128" height="145" fill="#EDE8DF"/>
+  <rect x="531" y="68" width="128" height="145" fill="url(#stairHatch)" opacity="0.5"/>
+  <rect x="531" y="68" width="128" height="145" fill="none" stroke="#C9BEB0" stroke-width="1.2"/>
+  <!-- Stair steps visual -->
+  <line x1="531" y1="88" x2="659" y2="88" stroke="#B8AFAA" stroke-width="1" opacity="0.6"/>
+  <line x1="531" y1="108" x2="659" y2="108" stroke="#B8AFAA" stroke-width="1" opacity="0.6"/>
+  <line x1="531" y1="128" x2="659" y2="128" stroke="#B8AFAA" stroke-width="1" opacity="0.6"/>
+  <line x1="531" y1="148" x2="659" y2="148" stroke="#B8AFAA" stroke-width="1" opacity="0.6"/>
+  <line x1="531" y1="168" x2="659" y2="168" stroke="#B8AFAA" stroke-width="1" opacity="0.6"/>
+  <line x1="531" y1="188" x2="659" y2="188" stroke="#B8AFAA" stroke-width="1" opacity="0.6"/>
+  <!-- Stair arrow up -->
+  <text x="595" y="135" font-size="18" text-anchor="middle" fill="#8A7E70" opacity="0.7">↑</text>
+  <text x="595" y="154" font-size="9" text-anchor="middle" fill="#8A7E70" font-weight="600" letter-spacing="0.5">TO F2</text>
+
+  <!-- Room 114 (east side of stairwell) -->
+  <!-- Note: 114 appears attached to the north gate lobby area. Render as sub-room. -->
+  <!-- Room 115 (south portion of north gate area) -->
+  <rect x="531" y="213" width="128" height="87" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="595" y="252" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">115</text>
+  <text x="595" y="267" font-size="9" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- ── EAST NORTH ROOMS (113 → 101 + Toilets) ── -->
+  <!-- Each 48px wide, y=68, h=232 -->
+
+  <!-- Room 113 -->
+  <rect x="659" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="683" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">113</text>
+  <text x="683" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 112 -->
+  <rect x="707" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="731" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">112</text>
+  <text x="731" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 111 -->
+  <rect x="755" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="779" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">111</text>
+  <text x="779" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 110 -->
+  <rect x="803" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="827" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">110</text>
+  <text x="827" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 109 -->
+  <rect x="851" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="875" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">109</text>
+  <text x="875" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 108 -->
+  <rect x="899" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="923" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">108</text>
+  <text x="923" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 107 -->
+  <rect x="947" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="971" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">107</text>
+  <text x="971" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 106 -->
+  <rect x="995" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1019" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">106</text>
+  <text x="1019" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 105 -->
+  <rect x="1043" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1067" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">105</text>
+  <text x="1067" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 104 -->
+  <rect x="1091" y="68" width="48" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1115" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">104</text>
+  <text x="1115" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- WC 1 (Women) -->
+  <rect x="1139" y="68" width="44" height="232" fill="#E8F4FB" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1161" y="158" font-size="16" text-anchor="middle" fill="#4A90D9">♀</text>
+  <text x="1161" y="178" font-size="9" font-weight="700" fill="#4A90D9" text-anchor="middle">WC</text>
+
+  <!-- WC 2 (Men) -->
+  <rect x="1183" y="68" width="44" height="232" fill="#E8F4FB" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1205" y="158" font-size="16" text-anchor="middle" fill="#4A90D9">♂</text>
+  <text x="1205" y="178" font-size="9" font-weight="700" fill="#4A90D9" text-anchor="middle">WC</text>
+
+  <!-- Room 103 -->
+  <rect x="1227" y="68" width="50" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1252" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">103</text>
+  <text x="1252" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 102 -->
+  <rect x="1277" y="68" width="52" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1303" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">102</text>
+  <text x="1303" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- Room 101 -->
+  <rect x="1329" y="68" width="53" height="232" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1355" y="177" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">101</text>
+  <text x="1355" y="192" font-size="8" fill="#8A7E70" text-anchor="middle">Room</text>
+
+  <!-- ─────────────────────────────────────────
+       5. ESCALATOR AREA (center, in corridor)
+  ───────────────────────────────────────── -->
+  <!-- Escalator section (between north rooms and south rooms, replacing part of corridor) -->
+  <!-- Left escalator -->
+  <rect x="515" y="285" width="80" height="103" rx="4" fill="#D6EAF8" stroke="#4A90D9" stroke-width="1.8"/>
+  <rect x="515" y="285" width="80" height="103" rx="4" fill="url(#escPattern)"/>
+  <!-- Escalator direction arrows and label -->
+  <text x="555" y="323" font-size="17" text-anchor="middle" fill="#2471A3" font-weight="700">↑</text>
+  <text x="555" y="345" font-size="8" text-anchor="middle" fill="#2471A3" font-weight="700" letter-spacing="0.5">ESCALATOR</text>
+  <text x="555" y="357" font-size="7.5" text-anchor="middle" fill="#2471A3">F1→F2</text>
+
+  <!-- Right escalator -->
+  <rect x="605" y="285" width="80" height="103" rx="4" fill="#D6EAF8" stroke="#4A90D9" stroke-width="1.8"/>
+  <rect x="605" y="285" width="80" height="103" rx="4" fill="url(#escPattern)"/>
+  <text x="645" y="323" font-size="17" text-anchor="middle" fill="#2471A3" font-weight="700">↓</text>
+  <text x="645" y="345" font-size="8" text-anchor="middle" fill="#2471A3" font-weight="700" letter-spacing="0.5">ESCALATOR</text>
+  <text x="645" y="357" font-size="7.5" text-anchor="middle" fill="#2471A3">F2→F1</text>
+
+  <!-- Decorative columns / open area dots between escalators and main area -->
+  <!-- Center atrium area with pillars -->
+  <circle cx="700" cy="336" r="5" fill="#D0C9BE" stroke="#B8B0A4" stroke-width="1"/>
+  <circle cx="730" cy="336" r="5" fill="#D0C9BE" stroke="#B8B0A4" stroke-width="1"/>
+  <circle cx="760" cy="336" r="5" fill="#D0C9BE" stroke="#B8B0A4" stroke-width="1"/>
+  <circle cx="790" cy="336" r="5" fill="#D0C9BE" stroke="#B8B0A4" stroke-width="1"/>
+  <circle cx="820" cy="336" r="5" fill="#D0C9BE" stroke="#B8B0A4" stroke-width="1"/>
+
+  <!-- ─────────────────────────────────────────
+       6. SOUTH SIDE ROOMS  (y: 373–632, h=259)
+  ───────────────────────────────────────── -->
+
+  <!-- Room 126 (large, left side) -->
+  <rect x="78" y="373" width="160" height="259" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="158" y="497" font-size="13" font-weight="600" fill="#4A4035" text-anchor="middle">126</text>
+  <text x="158" y="513" font-size="9" fill="#8A7E70" text-anchor="middle">Storage</text>
+
+  <!-- Room 127 (small, adjacent south of west entry) -->
+  <rect x="238" y="453" width="72" height="179" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <!-- Note: 127 has an irregular shape near door areas; simplified as rect -->
+  <text x="274" y="538" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">127</text>
+
+  <!-- Room 128 -->
+  <rect x="238" y="373" width="72" height="80" fill="#F2EDE4" stroke="#C9BEB0" stroke-width="1.2"/>
+  <!-- This represents the corridor-level utility area / 128 which is near west gate zone -->
+  <text x="274" y="417" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">128</text>
+
+  <!-- Room 129 -->
+  <rect x="310" y="373" width="85" height="259" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="352" y="497" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">129</text>
+  <text x="352" y="513" font-size="9" fill="#8A7E70" text-anchor="middle">Classroom</text>
+
+  <!-- Room 130 -->
+  <rect x="395" y="373" width="85" height="259" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="437" y="497" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">130</text>
+  <text x="437" y="513" font-size="9" fill="#8A7E70" text-anchor="middle">Classroom</text>
+
+  <!-- Room 131 -->
+  <rect x="480" y="373" width="85" height="259" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="522" y="497" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">131</text>
+  <text x="522" y="513" font-size="9" fill="#8A7E70" text-anchor="middle">Classroom</text>
+
+  <!-- Room 132 (near escalators) -->
+  <rect x="565" y="373" width="100" height="259" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="615" y="497" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">132</text>
+  <text x="615" y="513" font-size="9" fill="#8A7E70" text-anchor="middle">Classroom</text>
+
+  <!-- Room 133 -->
+  <rect x="665" y="373" width="88" height="259" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="709" y="497" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">133</text>
+  <text x="709" y="513" font-size="9" fill="#8A7E70" text-anchor="middle">Classroom</text>
+
+  <!-- Room 134 -->
+  <rect x="753" y="373" width="88" height="259" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="797" y="497" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">134</text>
+  <text x="797" y="513" font-size="9" fill="#8A7E70" text-anchor="middle">Classroom</text>
+
+  <!-- SOUTH GATE vestibule (x=841–937) -->
+  <!-- Small vestibule shown as open lobby area -->
+  <rect x="841" y="480" width="96" height="152" fill="#EEF7EE" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="889" y="553" font-size="9" text-anchor="middle" fill="#2E7D32" font-weight="600">Lobby</text>
+
+  <!-- Room 135 (large, southeast, with curved east wall) -->
+  <!-- Approximate curved wall with path -->
+  <path d="M937,373 L1268,373 L1268,632 Q1200,620 1160,580 Q1100,510 937,510 Z"
+        fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <!-- Label -->
+  <text x="1080" y="485" font-size="14" font-weight="600" fill="#4A4035" text-anchor="middle">135</text>
+  <text x="1080" y="502" font-size="9" fill="#8A7E70" text-anchor="middle">Multipurpose Hall</text>
+
+  <!-- Room 136 (right of 135, upper-right south area, but from floor plan it's north of the east side) -->
+  <!-- 136 is actually near east gate, upper-south side -->
+  <rect x="1268" y="373" width="114" height="259" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="1325" y="497" font-size="12" font-weight="600" fill="#4A4035" text-anchor="middle">136</text>
+  <text x="1325" y="513" font-size="9" fill="#8A7E70" text-anchor="middle">Office</text>
+
+  <!-- ─────────────────────────────────────────
+       7. OUTER WALLS (building boundary)
+  ───────────────────────────────────────── -->
+  <!-- Main building outline — drawn OVER rooms for crisp boundary -->
+  <path d="
+    M78,68 L1382,68
+    L1382,632
+    L938,632
+    L938,680 L820,680 L820,632
+    L78,632 Z
+  "
+  fill="none" stroke="#8C7E6C" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <!-- Internal horizontal walls (north/south room boundaries) -->
+  <!-- North rooms bottom wall -->
+  <line x1="78" y1="300" x2="531" y2="300" stroke="#8C7E6C" stroke-width="2.5"/>
+  <line x1="659" y1="300" x2="1382" y2="300" stroke="#8C7E6C" stroke-width="2.5"/>
+  <!-- South rooms top wall -->
+  <line x1="78" y1="373" x2="1382" y2="373" stroke="#8C7E6C" stroke-width="2.5"/>
+
+  <!-- West wing partial wall (between 121 and 122 area) -->
+  <line x1="78" y1="198" x2="206" y2="198" stroke="#B0A898" stroke-width="1.5"/>
+
+  <!-- ─────────────────────────────────────────
+       8. ENTRANCES / EXITS  (4 gates)
+  ───────────────────────────────────────── -->
+
+  <!-- ── NORTH GATE (北门 / North Gate) ── -->
+  <!-- Entry notch opening in north wall: x=540–648 -->
+  <!-- Overwrite wall with background to show opening -->
+  <rect x="541" y="64" width="108" height="8" fill="#DEDAD2"/>
+  <!-- Green entry threshold line -->
+  <line x1="541" y1="68" x2="649" y2="68" stroke="#4CAF50" stroke-width="4"/>
+  <!-- Gate marker pill -->
+  <rect x="541" y="32" width="108" height="30" rx="15" fill="#4CAF50" filter="url(#entryGlow)"/>
+  <text x="595" y="52" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">NORTH GATE</text>
+  <!-- Connecting line to building -->
+  <line x1="595" y1="62" x2="595" y2="68" stroke="#4CAF50" stroke-width="2.5"/>
+  <!-- Walkway -->
+  <rect x="558" y="8" width="74" height="26" fill="#D0CDBC" rx="2" opacity="0.7"/>
+  <line x1="558" y1="20" x2="632" y2="20" stroke="#C0BCAC" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- ── SOUTH GATE (南门 / South Gate) ── -->
+  <!-- Opening in south wall -->
+  <rect x="841" y="632" width="96" height="8" fill="#DEDAD2"/>
+  <line x1="841" y1="632" x2="937" y2="632" stroke="#4CAF50" stroke-width="4"/>
+  <!-- Extended vestibule walls -->
+  <line x1="841" y1="632" x2="841" y2="680" stroke="#8C7E6C" stroke-width="2.5"/>
+  <line x1="937" y1="632" x2="937" y2="680" stroke="#8C7E6C" stroke-width="2.5"/>
+  <!-- Gate markers -->
+  <rect x="841" y="692" width="96" height="30" rx="15" fill="#4CAF50" filter="url(#entryGlow)"/>
+  <text x="889" y="712" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">SOUTH GATE</text>
+  <!-- Walkway -->
+  <rect x="853" y="722" width="72" height="22" fill="#D0CDBC" rx="2" opacity="0.7"/>
+  <line x1="853" y1="733" x2="925" y2="733" stroke="#C0BCAC" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- ── WEST GATE (西门 / West Gate) ── -->
+  <!-- Opening in west wall at y=300–373 -->
+  <rect x="68" y="300" width="14" height="73" fill="#DEDAD2"/>
+  <line x1="78" y1="300" x2="78" y2="373" stroke="#4CAF50" stroke-width="4"/>
+  <!-- Gate pill (rotated) -->
+  <g transform="translate(20, 336)">
+    <rect x="-42" y="-15" width="88" height="28" rx="14" fill="#4CAF50" filter="url(#entryGlow)" transform="rotate(-90)"/>
+    <text x="0" y="4" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" transform="rotate(-90)">WEST GATE</text>
+  </g>
+
+  <!-- ── EAST GATE (东门 / East Gate) ── -->
+  <!-- Opening in east wall at y=300–373 -->
+  <rect x="1382" y="300" width="14" height="73" fill="#DEDAD2"/>
+  <line x1="1382" y1="300" x2="1382" y2="373" stroke="#4CAF50" stroke-width="4"/>
+  <!-- Gate pill -->
+  <g transform="translate(1418, 336)">
+    <rect x="-42" y="-15" width="86" height="28" rx="14" fill="#4CAF50" filter="url(#entryGlow)" transform="rotate(90)"/>
+    <text x="0" y="4" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" transform="rotate(90)">EAST GATE</text>
+  </g>
+
+  <!-- ─────────────────────────────────────────
+       9. ROOM-DOOR GAPS
+       (thin white cuts in room walls at corridor borders)
+  ───────────────────────────────────────── -->
+  <!-- Door gap indicators — small white rectangles on room-corridor boundary -->
+  <!-- North rooms → corridor doors (approx center of each room's south wall) -->
+  <g fill="#EDE8DF" stroke="none">
+    <!-- 120 door -->
+    <rect x="240" y="297" width="26" height="6"/>
+    <!-- 118 door -->
+    <rect x="332" y="297" width="26" height="6"/>
+    <!-- 117 door -->
+    <rect x="413" y="297" width="26" height="6"/>
+    <!-- 116 door -->
+    <rect x="479" y="297" width="26" height="6"/>
+    <!-- 115 door (south of stairwell) -->
+    <rect x="558" y="297" width="26" height="6"/>
+    <!-- 113 door -->
+    <rect x="665" y="297" width="26" height="6"/>
+    <!-- 112 door -->
+    <rect x="713" y="297" width="26" height="6"/>
+    <!-- 111 door -->
+    <rect x="761" y="297" width="26" height="6"/>
+    <!-- 110 door -->
+    <rect x="809" y="297" width="26" height="6"/>
+    <!-- 109 door -->
+    <rect x="857" y="297" width="26" height="6"/>
+    <!-- 108 door -->
+    <rect x="905" y="297" width="26" height="6"/>
+    <!-- 107 door -->
+    <rect x="953" y="297" width="26" height="6"/>
+    <!-- 106 door -->
+    <rect x="1001" y="297" width="26" height="6"/>
+    <!-- 105 door -->
+    <rect x="1049" y="297" width="26" height="6"/>
+    <!-- 104 door -->
+    <rect x="1097" y="297" width="26" height="6"/>
+    <!-- 103 door -->
+    <rect x="1233" y="297" width="26" height="6"/>
+    <!-- 102 door -->
+    <rect x="1281" y="297" width="26" height="6"/>
+    <!-- 101 door -->
+    <rect x="1337" y="297" width="26" height="6"/>
+    <!-- South rooms → corridor doors -->
+    <!-- 129 -->
+    <rect x="322" y="370" width="26" height="6"/>
+    <!-- 130 -->
+    <rect x="407" y="370" width="26" height="6"/>
+    <!-- 131 -->
+    <rect x="492" y="370" width="26" height="6"/>
+    <!-- 132 -->
+    <rect x="580" y="370" width="30" height="6"/>
+    <!-- 133 -->
+    <rect x="677" y="370" width="26" height="6"/>
+    <!-- 134 -->
+    <rect x="765" y="370" width="26" height="6"/>
+    <!-- 136 -->
+    <rect x="1273" y="370" width="30" height="6"/>
+    <!-- 135 (north side) -->
+    <rect x="980" y="370" width="30" height="6"/>
+    <rect x="1100" y="370" width="30" height="6"/>
+    <rect x="1200" y="370" width="30" height="6"/>
+  </g>
+
+  <!-- ─────────────────────────────────────────
+       10. FIRE SAFETY ELEMENTS (subtle)
+  ───────────────────────────────────────── -->
+  <!-- Fire extinguisher icons (red dots with "F") -->
+  <g fill="#E53935" opacity="0.8">
+    <!-- Near north gate -->
+    <circle cx="520" cy="310" r="6"/>
+    <text x="520" y="313.5" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle">F</text>
+    <!-- Near west gate -->
+    <circle cx="130" cy="336" r="6"/>
+    <text x="130" y="339.5" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle">F</text>
+    <!-- Near east gate -->
+    <circle cx="1320" cy="310" r="6"/>
+    <text x="1320" y="313.5" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle">F</text>
+    <!-- Center corridor -->
+    <circle cx="840" cy="336" r="6"/>
+    <text x="840" y="339.5" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle">F</text>
+    <!-- South gate area -->
+    <circle cx="860" cy="400" r="6"/>
+    <text x="860" y="403.5" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle">F</text>
+  </g>
+
+  <!-- Emergency exit signs on exit doors -->
+  <g opacity="0.9">
+    <rect x="551" y="72" width="20" height="14" rx="2" fill="#4CAF50"/>
+    <text x="561" y="82" font-size="7" fill="#FFFFFF" text-anchor="middle" font-weight="700">EXIT</text>
+    <rect x="851" y="636" width="20" height="14" rx="2" fill="#4CAF50"/>
+    <text x="861" y="646" font-size="7" fill="#FFFFFF" text-anchor="middle" font-weight="700">EXIT</text>
+    <rect x="52" y="312" width="20" height="14" rx="2" fill="#4CAF50"/>
+    <text x="62" y="322" font-size="7" fill="#FFFFFF" text-anchor="middle" font-weight="700">EXIT</text>
+    <rect x="1384" y="312" width="20" height="14" rx="2" fill="#4CAF50"/>
+    <text x="1394" y="322" font-size="7" fill="#FFFFFF" text-anchor="middle" font-weight="700">EXIT</text>
+  </g>
+
+  <!-- ─────────────────────────────────────────
+       11. USER LOCATION DOT (example position)
+  ───────────────────────────────────────── -->
+  <!-- Pulsing location indicator in main corridor -->
+  <circle cx="400" cy="336" r="16" fill="#4285F4" fill-opacity="0.18"/>
+  <circle cx="400" cy="336" r="9" fill="#4285F4" fill-opacity="0.35"/>
+  <circle cx="400" cy="336" r="6" fill="#4285F4"/>
+  <circle cx="400" cy="336" r="4" fill="#FFFFFF"/>
+  <circle cx="400" cy="336" r="2" fill="#4285F4"/>
+
+  <!-- ─────────────────────────────────────────
+       12. FLOOR LABEL (Google Maps style)
+  ───────────────────────────────────────── -->
+  <!-- Floor badge (top-left, like Google Maps indoor floor selector) -->
+  <rect x="90" y="5" width="80" height="56" rx="10" fill="#FFFFFF" filter="url(#compassShadow)"/>
+  <rect x="90" y="5" width="80" height="56" rx="10" fill="none" stroke="#E0D9D0" stroke-width="1"/>
+  <!-- Active floor indicator bar -->
+  <rect x="90" y="5" width="80" height="4" rx="10" fill="#4285F4"/>
+  <text x="130" y="27" font-size="9" fill="#9A8E7E" text-anchor="middle" font-weight="600" letter-spacing="1">FLOOR</text>
+  <text x="130" y="52" font-size="22" font-weight="700" fill="#4285F4" text-anchor="middle">1</text>
+
+  <!-- ─────────────────────────────────────────
+       13. MAP TITLE HEADER
+  ───────────────────────────────────────── -->
+  <!-- Title pill (Google Maps style, top-center) -->
+  <rect x="530" y="6" width="380" height="52" rx="26" fill="#FFFFFF" filter="url(#compassShadow)"/>
+  <rect x="530" y="6" width="380" height="52" rx="26" fill="none" stroke="#E0D9D0" stroke-width="1"/>
+  <!-- Building icon -->
+  <rect x="555" y="16" width="24" height="32" rx="3" fill="none" stroke="#4285F4" stroke-width="2"/>
+  <rect x="558" y="19" width="6" height="8" rx="1" fill="#4285F4" opacity="0.5"/>
+  <rect x="568" y="19" width="6" height="8" rx="1" fill="#4285F4" opacity="0.5"/>
+  <rect x="558" y="31" width="6" height="7" rx="1" fill="#4285F4" opacity="0.5"/>
+  <rect x="568" y="31" width="6" height="7" rx="1" fill="#4285F4" opacity="0.5"/>
+  <rect x="561" y="40" width="7" height="8" fill="#4285F4"/>
+  <!-- Title text -->
+  <text x="665" y="28" font-size="14" font-weight="700" fill="#3C3428" text-anchor="middle" letter-spacing="0.3">Teaching Building — Floor 1</text>
+  <text x="665" y="47" font-size="11" fill="#9A8E7E" text-anchor="middle" letter-spacing="0.5">Beijing University of Posts and Telecommunications</text>
+
+  <!-- ─────────────────────────────────────────
+       14. A/C ROOM LABELS for dense rooms (north row)
+       — short markers above north rooms
+  ───────────────────────────────────────── -->
+  <!-- Room number tab labels on outer (north) wall — like Google Maps top-bar labels -->
+  <!-- Already handled by in-room text, but add wall-edge tiny labels for numeric clarity -->
+  <g font-size="9" fill="#6A5F52" text-anchor="middle">
+    <text x="683" y="80">109–113</text>
+    <text x="875" y="80">Classrooms</text>
+    <text x="1067" y="80">104–108</text>
+    <text x="1252" y="80">101–103</text>
+  </g>
+
+  <!-- ─────────────────────────────────────────
+       15. COMPASS ROSE (top-right)
+  ───────────────────────────────────────── -->
+  <g transform="translate(1338, 35)" filter="url(#compassShadow)">
+    <circle r="24" fill="#FFFFFF" stroke="#E0D9D0" stroke-width="1.2"/>
+    <!-- N -->
+    <polygon points="0,-18 -5,-6 0,-10 5,-6" fill="#E53935"/>
+    <text x="0" y="-19" font-size="9" font-weight="800" fill="#E53935" text-anchor="middle">N</text>
+    <!-- S -->
+    <polygon points="0,18 -5,6 0,10 5,6" fill="#9A8E7E"/>
+    <!-- E -->
+    <polygon points="18,0 6,-5 10,0 6,5" fill="#9A8E7E"/>
+    <!-- W -->
+    <polygon points="-18,0 -6,-5 -10,0 -6,5" fill="#9A8E7E"/>
+    <!-- Center dot -->
+    <circle r="3" fill="#4A4035"/>
+  </g>
+
+  <!-- ─────────────────────────────────────────
+       16. SCALE BAR
+  ───────────────────────────────────────── -->
+  <g transform="translate(1210, 718)">
+    <rect x="0" y="0" width="130" height="34" rx="8" fill="#FFFFFF" opacity="0.92" filter="url(#compassShadow)"/>
+    <rect x="0" y="0" width="130" height="34" rx="8" fill="none" stroke="#E0D9D0" stroke-width="1"/>
+    <!-- Scale line -->
+    <line x1="10" y1="20" x2="110" y2="20" stroke="#4A4035" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="10" y1="14" x2="10" y2="26" stroke="#4A4035" stroke-width="2"/>
+    <line x1="60" y1="16" x2="60" y2="24" stroke="#4A4035" stroke-width="1.5"/>
+    <line x1="110" y1="14" x2="110" y2="26" stroke="#4A4035" stroke-width="2"/>
+    <text x="10" y="32" font-size="8.5" fill="#6A5F52">0</text>
+    <text x="55" y="32" font-size="8.5" fill="#6A5F52" text-anchor="middle">25m</text>
+    <text x="110" y="32" font-size="8.5" fill="#6A5F52" text-anchor="end">50m</text>
+  </g>
+
+  <!-- ─────────────────────────────────────────
+       17. LEGEND
+  ───────────────────────────────────────── -->
+  <g transform="translate(80, 698)">
+    <rect x="-4" y="-4" width="468" height="62" rx="10" fill="#FFFFFF" opacity="0.93" filter="url(#compassShadow)"/>
+    <rect x="-4" y="-4" width="468" height="62" rx="10" fill="none" stroke="#E0D9D0" stroke-width="1"/>
+    <!-- Title -->
+    <text x="4" y="10" font-size="9" font-weight="700" fill="#4A4035" letter-spacing="1">MAP LEGEND</text>
+    <!-- Item 1: Classroom -->
+    <rect x="4" y="17" width="14" height="14" fill="#FFFDF7" stroke="#C9BEB0" stroke-width="1.2"/>
+    <text x="22" y="29" font-size="10" fill="#4A4035">Classroom / Office</text>
+    <!-- Item 2: Corridor -->
+    <rect x="122" y="17" width="14" height="14" fill="#EDE8DF" stroke="#C9BEB0" stroke-width="1"/>
+    <text x="140" y="29" font-size="10" fill="#4A4035">Corridor</text>
+    <!-- Item 3: WC -->
+    <rect x="208" y="17" width="14" height="14" fill="#E8F4FB" stroke="#C9BEB0" stroke-width="1"/>
+    <text x="226" y="29" font-size="10" fill="#4A4035">Restroom</text>
+    <!-- Item 4: Escalator -->
+    <rect x="296" y="17" width="14" height="14" fill="#D6EAF8" stroke="#4A90D9" stroke-width="1.2"/>
+    <text x="314" y="29" font-size="10" fill="#4A4035">Escalator</text>
+    <!-- Item 5: Entrance -->
+    <line x1="386" y1="24" x2="400" y2="24" stroke="#4CAF50" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="404" y="29" font-size="10" fill="#4A4035">Entrance/Exit</text>
+    <!-- Row 2 -->
+    <!-- Fire extinguisher -->
+    <circle cx="11" cy="49" r="5" fill="#E53935" opacity="0.85"/>
+    <text x="11" y="52" font-size="6" font-weight="700" fill="#FFFFFF" text-anchor="middle">F</text>
+    <text x="20" y="53" font-size="10" fill="#4A4035">Fire Equipment</text>
+    <!-- Stairwell -->
+    <rect x="122" y="41" width="14" height="14" fill="url(#stairHatch)" stroke="#C9BEB0" stroke-width="1"/>
+    <text x="140" y="53" font-size="10" fill="#4A4035">Stairwell / Stairs</text>
+    <!-- You are here -->
+    <circle cx="260" cy="48" r="5" fill="#4285F4"/>
+    <circle cx="260" cy="48" r="3.5" fill="#FFFFFF"/>
+    <circle cx="260" cy="48" r="2" fill="#4285F4"/>
+    <text x="270" y="53" font-size="10" fill="#4A4035">You Are Here</text>
+  </g>
+
+  <!-- ─────────────────────────────────────────
+       18. BUILDING NORTH SIDE detail: slight
+       recess around north gate (triangular walls)
+  ───────────────────────────────────────── -->
+  <!-- Angled wall left of north gate (showing architectural detail) -->
+  <line x1="531" y1="68" x2="495" y2="100" stroke="#8C7E6C" stroke-width="2.5"/>
+  <line x1="495" y1="100" x2="466" y2="100" stroke="#8C7E6C" stroke-width="2.5"/>
+  <!-- (Matches the diagonal cut visible in the photo near north gate) -->
+  <!-- Triangular zone between 116 and north gate -->
+  <polygon points="531,68 466,100 466,68" fill="#EDE8DF" stroke="#8C7E6C" stroke-width="1.5"/>
+
+  <!-- Angled wall right of north gate -->
+  <line x1="659" y1="68" x2="693" y2="100" stroke="#8C7E6C" stroke-width="2.5"/>
+  <line x1="693" y1="100" x2="707" y2="100" stroke="#8C7E6C" stroke-width="2.5"/>
+  <!-- Triangular infill -->
+  <polygon points="659,68 707,68 707,100 693,100" fill="#EDE8DF" stroke="#8C7E6C" stroke-width="1.5"/>
+
+  <!-- ─────────────────────────────────────────
+       19. SOUTH GATE DETAIL (extended vestibule)
+  ───────────────────────────────────────── -->
+  <!-- Diagonal wall lines near south gate (similar to north gate style) -->
+  <line x1="841" y1="632" x2="813" y2="608" stroke="#8C7E6C" stroke-width="1.5"/>
+  <line x1="937" y1="632" x2="968" y2="606" stroke="#8C7E6C" stroke-width="1.5"/>
+
+  <!-- ─────────────────────────────────────────
+       20. ROOM 119 (small utility/corridor room)
+       Located near west corridor junction
+  ───────────────────────────────────────── -->
+  <rect x="209" y="300" width="84" height="73" fill="#F5F0E8" stroke="#C9BEB0" stroke-width="1.2"/>
+  <text x="251" y="333" font-size="11" font-weight="600" fill="#4A4035" text-anchor="middle">119</text>
+  <text x="251" y="348" font-size="8" fill="#8A7E70" text-anchor="middle">Security</text>
+
+  <!-- ─────────────────────────────────────────
+       21. FINAL TOP/OUTER WALL RE-DRAW
+       (ensure clean outer boundary on top of everything)
+  ───────────────────────────────────────── -->
+  <path d="
+    M78,68 L466,68 L466,100 L495,100 L531,68
+    L659,68 L693,100 L707,68
+    L1382,68
+    L1382,632
+    L938,632
+    L938,680 L820,680 L820,632
+    L78,632 Z
+  "
+  fill="none" stroke="#7A6F62" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- ─────────────────────────────────────────
+       22. INTERACTIVE HINT TOOLTIP (Room labels on hover)
+       — Static hint showing room info box style
+  ───────────────────────────────────────── -->
+  <!-- Example: Room info card near center (Google Maps tooltip style) -->
+  <g transform="translate(840, 240)" opacity="0.95">
+    <rect x="-58" y="-40" width="116" height="64" rx="8" fill="#FFFFFF" filter="url(#compassShadow)"/>
+    <rect x="-58" y="-40" width="116" height="64" rx="8" fill="none" stroke="#E0D9D0" stroke-width="1"/>
+    <!-- Triangle pointer -->
+    <polygon points="-6,24 6,24 0,34" fill="#FFFFFF" stroke="#E0D9D0" stroke-width="1" stroke-linejoin="round"/>
+    <rect x="-58" y="-40" width="116" height="22" rx="8" fill="#4285F4" opacity="0.1"/>
+    <text x="0" y="-24" font-size="11" font-weight="700" fill="#4285F4" text-anchor="middle">Room 109</text>
+    <text x="0" y="-8" font-size="9.5" fill="#4A4035" text-anchor="middle">Computer Lab</text>
+    <text x="0" y="6" font-size="8.5" fill="#8A7E70" text-anchor="middle">Floor 1 · Open 8am–10pm</text>
+    <line x1="0" y1="34" x2="0" y2="35" stroke="#E0D9D0" stroke-width="1"/>
+  </g>
+  <!-- Connector to room 109 (small line) -->
+  <line x1="875" y1="212" x2="875" y2="232" stroke="#9A8E7E" stroke-width="1" stroke-dasharray="3,2"/>
+
+</svg>

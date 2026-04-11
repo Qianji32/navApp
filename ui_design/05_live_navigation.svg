@@ -1,0 +1,224 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="844" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0D1B3E"/>
+      <stop offset="60%" stop-color="#0F2252"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <!-- Direction arrow gradient -->
+    <linearGradient id="arrowGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <!-- Arrow glow -->
+    <radialGradient id="arrowGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Map preview gradient -->
+    <linearGradient id="mapGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#152D4A"/>
+    </linearGradient>
+    <!-- Progress gradient -->
+    <linearGradient id="progressGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <!-- Card glass -->
+    <linearGradient id="cardGlass" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#1E3A6E" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#162D56" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="arrowShadow">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="cardBlur">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="emergencyShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#EF4444" flood-opacity="0.5"/>
+    </filter>
+    <filter id="pulseShadow">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="textGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="emergGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+  </defs>
+
+  <!-- DARK NAVIGATION BACKGROUND -->
+  <rect width="390" height="844" fill="url(#bg)" rx="40"/>
+
+  <!-- Ambient glow center -->
+  <ellipse cx="195" cy="340" rx="200" ry="180" fill="#1D4ED8" fill-opacity="0.08"/>
+  <ellipse cx="195" cy="340" rx="120" ry="120" fill="#3B82F6" fill-opacity="0.05"/>
+
+  <!-- Decorative grid lines (subtle) -->
+  <g opacity="0.05">
+    <line x1="0" y1="280" x2="390" y2="280" stroke="#60A5FA" stroke-width="1"/>
+    <line x1="0" y1="320" x2="390" y2="320" stroke="#60A5FA" stroke-width="1"/>
+    <line x1="0" y1="360" x2="390" y2="360" stroke="#60A5FA" stroke-width="1"/>
+    <line x1="0" y1="400" x2="390" y2="400" stroke="#60A5FA" stroke-width="1"/>
+    <line x1="80" y1="200" x2="80" y2="450" stroke="#60A5FA" stroke-width="1"/>
+    <line x1="160" y1="200" x2="160" y2="450" stroke="#60A5FA" stroke-width="1"/>
+    <line x1="240" y1="200" x2="240" y2="450" stroke="#60A5FA" stroke-width="1"/>
+    <line x1="320" y1="200" x2="320" y2="450" stroke="#60A5FA" stroke-width="1"/>
+  </g>
+
+  <!-- ═══════════════ STATUS BAR ═══════════════ -->
+  <rect x="126" y="14" width="138" height="34" rx="22" fill="#000000"/>
+  <circle cx="239" cy="31" r="5.5" fill="#1A1A1A"/>
+  <circle cx="239" cy="31" r="3" fill="#0D0D0D"/>
+  <text x="40" y="34" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF">9:41</text>
+  <g opacity="0.7">
+    <rect x="340" y="23" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+    <rect x="362" y="26.5" width="2.5" height="4" rx="1" fill="#FFFFFF"/>
+    <rect x="341.5" y="24.5" width="16" height="8" rx="1.5" fill="#FFFFFF"/>
+    <rect x="297" y="29" width="3" height="5" rx="1" fill="#FFFFFF"/>
+    <rect x="302" y="27" width="3" height="7" rx="1" fill="#FFFFFF"/>
+    <rect x="307" y="25" width="3" height="9" rx="1" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ═══════════════ NAVIGATION HEADER BAR ═══════════════ -->
+  <text x="195" y="76" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="16" font-weight="600" fill="#93C5FD" text-anchor="middle" letter-spacing="0.5">NAVIGATING</text>
+  <text x="195" y="98" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" text-anchor="middle">Room 401 · Bldg A</text>
+  <!-- Nav end button top right -->
+  <rect x="320" y="78" width="56" height="28" rx="14" fill="#1E3A6E" stroke="#3B82F6" stroke-width="1"/>
+  <text x="348" y="96" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" font-weight="600" fill="#60A5FA" text-anchor="middle">End</text>
+
+  <!-- ═══════════════ LARGE DIRECTION ARROW ═══════════════ -->
+  <!-- Glow halo -->
+  <ellipse cx="195" cy="290" rx="110" ry="110" fill="url(#arrowGlow)"/>
+  <!-- Arrow circle background -->
+  <circle cx="195" cy="290" r="88" fill="#0F2252" stroke="#1E40AF" stroke-width="2" stroke-opacity="0.5"/>
+  <circle cx="195" cy="290" r="80" fill="#0D1B3E" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- Main direction arrow (pointing forward/up-right = turn right) -->
+  <!-- Shaft -->
+  <rect x="185" y="250" width="20" height="52" rx="5" fill="url(#arrowGrad)" filter="url(#arrowShadow)"/>
+  <!-- Arrow head (pointing up) -->
+  <polygon points="195,226 168,264 186,258 186,264 204,264 204,258 222,264" fill="url(#arrowGrad)" filter="url(#arrowShadow)"/>
+  <!-- Distance text in arrow area -->
+  <text x="195" y="325" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="38" font-weight="800" fill="#FFFFFF" text-anchor="middle" filter="url(#textGlow)">38 m</text>
+  <text x="195" y="347" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="14" fill="#93C5FD" text-anchor="middle" opacity="0.85">until next turn</text>
+
+  <!-- ═══════════════ TURN INSTRUCTION CARD ═══════════════ -->
+  <rect x="20" y="384" width="350" height="86" rx="22" fill="url(#cardGlass)" stroke="#2355A4" stroke-width="1.5"/>
+  <!-- Current instruction -->
+  <rect x="32" y="398" width="42" height="42" rx="14" fill="#1E40AF"/>
+  <!-- Turn right arrow -->
+  <path d="M49 412 L49 424 Q49 430 55 430 L57 430" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M54 426 L58 430 L54 434" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="86" y="416" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Turn Right</text>
+  <text x="86" y="436" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="13" fill="#93C5FD">into Main Corridor B</text>
+  <!-- Then label -->
+  <rect x="32" y="448" width="330" height="16" rx="0" fill="transparent"/>
+  <text x="32" y="460" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#60A5FA" opacity="0.7">Then:  Head straight 40 m · Room 401 on left</text>
+
+  <!-- ═══════════════ PROGRESS INDICATOR ═══════════════ -->
+  <rect x="20" y="485" width="350" height="56" rx="18" fill="url(#cardGlass)" stroke="#2355A4" stroke-width="1"/>
+  <!-- Labels -->
+  <text x="32" y="505" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" font-weight="500" fill="#93C5FD">Library Entrance</text>
+  <text x="358" y="505" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" font-weight="500" fill="#93C5FD" text-anchor="end">Room 401</text>
+  <!-- Progress track -->
+  <rect x="32" y="512" width="326" height="7" rx="3.5" fill="#132A50"/>
+  <!-- Progress fill (65%) -->
+  <rect x="32" y="512" width="212" height="7" rx="3.5" fill="url(#progressGrad)"/>
+  <!-- Progress thumb -->
+  <circle cx="244" cy="515.5" r="8" fill="#3B82F6" stroke="#0D1B3E" stroke-width="2"/>
+  <!-- Progress stats -->
+  <text x="32" y="533" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#60A5FA">92 m done</text>
+  <text x="195" y="533" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#60A5FA" text-anchor="middle">65%</text>
+  <text x="358" y="533" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#60A5FA" text-anchor="end">50 m left</text>
+
+  <!-- ═══════════════ MINI 3D PATH PREVIEW ═══════════════ -->
+  <text x="24" y="570" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="13" font-weight="600" fill="#60A5FA" letter-spacing="0.5">UPCOMING PATH</text>
+  <rect x="20" y="580" width="350" height="110" rx="18" fill="url(#mapGrad)" stroke="#1E3A6E" stroke-width="1.5"/>
+  <!-- Mini map elements -->
+  <g opacity="0.2">
+    <line x1="20" y1="605" x2="370" y2="605" stroke="#60A5FA" stroke-width="0.8"/>
+    <line x1="20" y1="625" x2="370" y2="625" stroke="#60A5FA" stroke-width="0.8"/>
+    <line x1="20" y1="645" x2="370" y2="645" stroke="#60A5FA" stroke-width="0.8"/>
+    <line x1="20" y1="665" x2="370" y2="665" stroke="#60A5FA" stroke-width="0.8"/>
+    <line x1="75" y1="580" x2="75" y2="690" stroke="#60A5FA" stroke-width="0.8"/>
+    <line x1="140" y1="580" x2="140" y2="690" stroke="#60A5FA" stroke-width="0.8"/>
+    <line x1="205" y1="580" x2="205" y2="690" stroke="#60A5FA" stroke-width="0.8"/>
+    <line x1="270" y1="580" x2="270" y2="690" stroke="#60A5FA" stroke-width="0.8"/>
+    <line x1="335" y1="580" x2="335" y2="690" stroke="#60A5FA" stroke-width="0.8"/>
+  </g>
+  <!-- Building outlines -->
+  <rect x="42" y="592" width="50" height="35" rx="4" fill="#1E40AF" stroke="#3B82F6" stroke-width="0.8" opacity="0.7"/>
+  <rect x="110" y="588" width="70" height="44" rx="4" fill="#1E40AF" stroke="#3B82F6" stroke-width="0.8" opacity="0.85"/>
+  <rect x="212" y="592" width="55" height="35" rx="4" fill="#1E40AF" stroke="#3B82F6" stroke-width="0.8" opacity="0.7"/>
+  <rect x="295" y="592" width="55" height="35" rx="4" fill="#1E40AF" stroke="#3B82F6" stroke-width="0.8" opacity="0.7"/>
+  <!-- Highlighted active building -->
+  <rect x="110" y="588" width="70" height="44" rx="4" fill="#3B82F6" fill-opacity="0.2"/>
+  <!-- Path line preview -->
+  <path d="M50 660 L50 640 Q50 630 60 630 L110 630 Q120 630 120 640 L120 632 Q120 622 130 622 L200 622 Q210 622 210 630 L210 650 Q210 660 220 660 L310 660 L310 640" stroke="#60A5FA" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="5,3"/>
+  <!-- Arrows on path -->
+  <polygon points="145,627 155,622 145,617" fill="#60A5FA" opacity="0.8"/>
+  <polygon points="265,657 275,652 265,647" fill="#60A5FA" opacity="0.8"/>
+  <!-- User dot -->
+  <circle cx="50" cy="660" r="7" fill="#3B82F6" fill-opacity="0.25"/>
+  <circle cx="50" cy="660" r="5" fill="#3B82F6"/>
+  <circle cx="50" cy="660" r="2.5" fill="#FFFFFF"/>
+  <!-- Dest pin -->
+  <circle cx="310" cy="640" r="5" fill="#EF4444"/>
+  <circle cx="310" cy="640" r="2.5" fill="#FFFFFF"/>
+
+  <!-- ═══════════════ ACTION BUTTONS ROW ═══════════════ -->
+  <!-- Recalculate button -->
+  <rect x="20" y="706" width="160" height="48" rx="24" fill="#132A50" stroke="#2355A4" stroke-width="1.5"/>
+  <!-- Recalculate icon (circular arrows) -->
+  <path d="M44 730 C44 723 49 718 56 718 C61 718 65 721 67 725" stroke="#60A5FA" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="67,720 70,726 64,726" fill="#60A5FA"/>
+  <text x="120" y="735" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="13" font-weight="600" fill="#60A5FA" text-anchor="middle">Recalculate</text>
+
+  <!-- Accessibility button -->
+  <rect x="192" y="706" width="86" height="48" rx="24" fill="#132A50" stroke="#2355A4" stroke-width="1.5"/>
+  <text x="235" y="728" font-family="sans-serif" font-size="18" text-anchor="middle" fill="#93C5FD">♿</text>
+  <text x="235" y="744" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" font-weight="500" fill="#93C5FD" text-anchor="middle">Access</text>
+
+  <!-- Emergency button -->
+  <rect x="290" y="706" width="80" height="48" rx="24" fill="url(#emergGrad)" filter="url(#emergencyShadow)"/>
+  <text x="330" y="728" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#FFFFFF">🚨</text>
+  <text x="330" y="744" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">SOS</text>
+
+  <!-- ═══════════════ ETA FOOTER STRIP ═══════════════ -->
+  <rect x="0" y="766" width="390" height="78" fill="#091429" rx="0"/>
+  <rect x="0" y="766" width="390" height="1.5" fill="#1E3A6E"/>
+  <!-- ETA stat 1 -->
+  <text x="70" y="795" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="26" font-weight="800" fill="#FFFFFF" text-anchor="middle">1:42</text>
+  <text x="70" y="813" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#60A5FA" text-anchor="middle">min remaining</text>
+  <!-- Divider -->
+  <line x1="138" y1="778" x2="138" y2="818" stroke="#1E3A6E" stroke-width="1.5"/>
+  <!-- ETA stat 2 -->
+  <text x="195" y="795" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="26" font-weight="800" fill="#FFFFFF" text-anchor="middle">50 m</text>
+  <text x="195" y="813" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#60A5FA" text-anchor="middle">distance left</text>
+  <!-- Divider -->
+  <line x1="252" y1="778" x2="252" y2="818" stroke="#1E3A6E" stroke-width="1.5"/>
+  <!-- ETA stat 3 -->
+  <text x="322" y="795" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="26" font-weight="800" fill="#FFFFFF" text-anchor="middle">10:22</text>
+  <text x="322" y="813" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#60A5FA" text-anchor="middle">arrival time</text>
+
+  <!-- Home indicator -->
+  <rect x="153" y="832" width="84" height="5" rx="2.5" fill="#FFFFFF" opacity="0.25"/>
+
+  <!-- Device frame -->
+  <rect width="390" height="844" rx="40" fill="none" stroke="#1E293B" stroke-width="2" opacity="0.5"/>
+</svg>

@@ -1,0 +1,196 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="844" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F0F5FF"/>
+      <stop offset="100%" stop-color="#F8FAFF"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="390" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="miniMapGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#3B82F6" flood-opacity="0.09"/>
+    </filter>
+    <filter id="ctaShadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#3B82F6" flood-opacity="0.35"/>
+    </filter>
+    <filter id="navShadow">
+      <feDropShadow dx="0" dy="-4" stdDeviation="12" flood-color="#1E293B" flood-opacity="0.08"/>
+    </filter>
+    <filter id="stepIconShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#3B82F6" flood-opacity="0.2"/>
+    </filter>
+    <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="progressGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND -->
+  <rect width="390" height="844" fill="url(#bg)" rx="40"/>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <path d="M0 0 L390 0 L390 152 Q390 175 360 175 L30 175 Q0 175 0 152 Z" fill="url(#headerGrad)"/>
+  <circle cx="330" cy="60" r="80" fill="#FFFFFF" fill-opacity="0.04"/>
+  <circle cx="-20" cy="130" r="70" fill="#FFFFFF" fill-opacity="0.04"/>
+
+  <!-- STATUS BAR -->
+  <rect x="126" y="14" width="138" height="34" rx="22" fill="#000000"/>
+  <circle cx="239" cy="31" r="5.5" fill="#1A1A1A"/>
+  <circle cx="239" cy="31" r="3" fill="#0D0D0D"/>
+  <text x="40" y="34" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF">9:41</text>
+  <g opacity="0.85">
+    <rect x="340" y="23" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+    <rect x="362" y="26.5" width="2.5" height="4" rx="1" fill="#FFFFFF"/>
+    <rect x="341.5" y="24.5" width="16" height="8" rx="1.5" fill="#FFFFFF"/>
+    <rect x="297" y="29" width="3" height="5" rx="1" fill="#FFFFFF"/>
+    <rect x="302" y="27" width="3" height="7" rx="1" fill="#FFFFFF"/>
+    <rect x="307" y="25" width="3" height="9" rx="1" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Back button -->
+  <circle cx="44" cy="84" r="18" fill="#FFFFFF" fill-opacity="0.2"/>
+  <path d="M50 78 L42 84 L50 90" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Header title -->
+  <text x="195" y="80" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF" text-anchor="middle">Route Overview</text>
+  <text x="195" y="100" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="13" fill="#BFDBFE" text-anchor="middle">BUPT Main Campus</text>
+
+  <!-- ═══╣ Summary Stats Ribbon ╠═══════════════════════ -->
+  <!-- Three stats badges on header bottom area -->
+  <rect x="30" y="120" width="98" height="46" rx="14" fill="#FFFFFF" fill-opacity="0.18"/>
+  <text x="79" y="140" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">3 min</text>
+  <text x="79" y="156" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#BFDBFE" text-anchor="middle">Est. Time</text>
+
+  <rect x="146" y="120" width="98" height="46" rx="14" fill="#FFFFFF" fill-opacity="0.22"/>
+  <text x="195" y="140" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">142 m</text>
+  <text x="195" y="156" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#BFDBFE" text-anchor="middle">Distance</text>
+
+  <rect x="262" y="120" width="98" height="46" rx="14" fill="#FFFFFF" fill-opacity="0.18"/>
+  <text x="311" y="140" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">2F→1F</text>
+  <text x="311" y="156" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" fill="#BFDBFE" text-anchor="middle">Floor Jump</text>
+
+  <!-- ═══════════════ ROUTE CARD ═══════════════ -->
+  <rect x="20" y="188" width="350" height="148" rx="22" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+  <!-- FROM / TO labels -->
+  <text x="44" y="214" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" font-weight="600" fill="#94A3B8" letter-spacing="1.5">FROM</text>
+  <!-- Start location dot -->
+  <circle cx="44" cy="234" r="8" fill="#3B82F6"/>
+  <circle cx="44" cy="234" r="4" fill="#FFFFFF"/>
+  <text x="62" y="239" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="17" font-weight="600" fill="#1E293B">Library Entrance</text>
+  <text x="62" y="257" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#64748B">Building A, Floor 2</text>
+
+  <!-- Divider line with dots -->
+  <line x1="44" y1="243" x2="44" y2="295" stroke="#DBEAFE" stroke-width="2" stroke-dasharray="3,3"/>
+  <circle cx="44" cy="256" r="2" fill="#BFDBFE"/>
+  <circle cx="44" cy="265" r="2" fill="#BFDBFE"/>
+  <circle cx="44" cy="274" r="2" fill="#BFDBFE"/>
+
+  <text x="44" y="292" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="11" font-weight="600" fill="#94A3B8" letter-spacing="1.5">TO</text>
+  <!-- End location pin -->
+  <circle cx="44" cy="316" r="8" fill="#EF4444"/>
+  <path d="M44 305 C39.5 305 36 308.5 36 313 C36 318.5 44 325 44 325 C44 325 52 318.5 52 313 C52 308.5 48.5 305 44 305 Z" fill="#EF4444"/>
+  <circle cx="44" cy="313" r="3" fill="#FFFFFF"/>
+  <text x="62" y="320" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="17" font-weight="600" fill="#1E293B">Room 401</text>
+  <text x="62" y="338" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#64748B">Building A, Floor 1</text>
+
+  <!-- ═══════════════ MINI MAP PREVIEW ═══════════════ -->
+  <rect x="20" y="350" width="350" height="160" rx="22" fill="url(#miniMapGrad)" filter="url(#cardShadow)"/>
+  <!-- Map grid -->
+  <g opacity="0.1">
+    <line x1="20" y1="375" x2="370" y2="375" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="20" y1="400" x2="370" y2="400" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="20" y1="425" x2="370" y2="425" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="20" y1="450" x2="370" y2="450" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="20" y1="475" x2="370" y2="475" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="65" y1="350" x2="65" y2="510" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="115" y1="350" x2="115" y2="510" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="165" y1="350" x2="165" y2="510" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="215" y1="350" x2="215" y2="510" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="265" y1="350" x2="265" y2="510" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="315" y1="350" x2="315" y2="510" stroke="#3B82F6" stroke-width="1"/>
+  </g>
+  <!-- Building blocks on mini map -->
+  <rect x="36" y="364" width="60" height="40" rx="6" fill="#BFDBFE" stroke="#93C5FD" stroke-width="1"/>
+  <text x="66" y="388" font-family="sans-serif" font-size="8" fill="#3B82F6" text-anchor="middle" font-weight="600">Main Hall</text>
+  <rect x="116" y="360" width="70" height="52" rx="6" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1"/>
+  <text x="151" y="390" font-family="sans-serif" font-size="8" fill="#2563EB" text-anchor="middle" font-weight="700">Teaching A</text>
+  <rect x="220" y="364" width="60" height="40" rx="6" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1"/>
+  <text x="250" y="388" font-family="sans-serif" font-size="8" fill="#3B82F6" text-anchor="middle" font-weight="600">Library</text>
+  <rect x="50" y="443" width="56" height="36" rx="6" fill="#EDE9FE" stroke="#A78BFA" stroke-width="1"/>
+  <text x="78" y="465" font-family="sans-serif" font-size="8" fill="#7C3AED" text-anchor="middle" font-weight="600">Lab</text>
+  <rect x="282" y="439" width="60" height="40" rx="6" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1"/>
+  <text x="312" y="463" font-family="sans-serif" font-size="8" fill="#059669" text-anchor="middle" font-weight="600">Canteen</text>
+  <!-- Route line on mini map -->
+  <path d="M250 370 Q250 380 220 390 Q186 400 175 415 Q164 430 151 430 Q138 430 130 445 Q122 460 78 460" stroke="#3B82F6" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="5,3" opacity="0.85"/>
+  <!-- Start / end markers -->
+  <circle cx="250" cy="370" r="5" fill="#EF4444"/>
+  <circle cx="250" cy="370" r="2.5" fill="#FFFFFF"/>
+  <circle cx="78" cy="460" r="7" fill="#3B82F6" fill-opacity="0.2"/>
+  <circle cx="78" cy="460" r="5" fill="#3B82F6"/>
+  <circle cx="78" cy="460" r="2.5" fill="#FFFFFF"/>
+
+  <!-- ═══════════════ STEP-BY-STEP INSTRUCTIONS ═══════════════ -->
+  <text x="24" y="540" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="17" font-weight="600" fill="#1E293B">Step-by-Step</text>
+
+  <!-- Step 1 -->
+  <rect x="20" y="552" width="350" height="56" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+  <!-- Step icon -->
+  <rect x="32" y="564" width="32" height="32" rx="12" fill="#EFF6FF" filter="url(#stepIconShadow)"/>
+  <!-- Arrow right icon -->
+  <path d="M42 580 L56 580 M52 575 L57 580 L52 585" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="76" y="577" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1E293B">Head south through Main Hall</text>
+  <text x="76" y="595" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#64748B">50 m  •  Floor 2</text>
+  <text x="348" y="582" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8" text-anchor="end">50 m</text>
+
+  <!-- Step 2 - Elevator -->
+  <rect x="20" y="618" width="350" height="56" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+  <rect x="32" y="630" width="32" height="32" rx="12" fill="#F5F3FF" filter="url(#stepIconShadow)"/>
+  <!-- Elevator icon -->
+  <rect x="39" y="636" width="18" height="20" rx="2" fill="none" stroke="#7C3AED" stroke-width="1.5"/>
+  <polyline points="42,644 48,638 54,644" fill="none" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="42,648 48,654 54,648" fill="none" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="76" y="643" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1E293B">Take Elevator to Floor 1</text>
+  <text x="76" y="661" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#7C3AED">Floor change: 2F → 1F</text>
+  <text x="348" y="649" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8" text-anchor="end">~1 min</text>
+
+  <!-- Step 3 -->
+  <rect x="20" y="684" width="350" height="56" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+  <rect x="32" y="696" width="32" height="32" rx="12" fill="#FFF7ED" filter="url(#stepIconShadow)"/>
+  <text x="48" y="717" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="18" fill="#EA580C" text-anchor="middle">↱</text>
+  <text x="76" y="709" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1E293B">Turn right, continue 40 m</text>
+  <text x="76" y="727" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#64748B">Corridor B, Floor 1</text>
+  <text x="348" y="715" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="12" fill="#94A3B8" text-anchor="end">40 m</text>
+
+  <!-- Destination step -->
+  <rect x="20" y="748" width="350" height="40" rx="14" fill="#FEF2F2"/>
+  <circle cx="52" cy="768" r="10" fill="#EF4444"/>
+  <path d="M52 758 C47 758 44 761 44 766 C44 771 52 778 52 778 C52 778 60 771 60 766 C60 761 57 758 52 758 Z" fill="#EF4444"/>
+  <circle cx="52" cy="766" r="3.5" fill="#FFFFFF"/>
+  <text x="72" y="773" font-family="'SF Pro Text', -apple-system, sans-serif" font-size="14" font-weight="700" fill="#991B1B">Room 401 — Arrived!</text>
+
+  <!-- ═══════════════ CTA BUTTON ═══════════════ -->
+  <rect x="20" y="798" width="350" height="56" rx="28" fill="url(#ctaGrad)" filter="url(#ctaShadow)"/>
+  <!-- Shine highlight -->
+  <rect x="20" y="798" width="350" height="28" rx="28" fill="#FFFFFF" fill-opacity="0.1"/>
+  <text x="195" y="831" font-family="'SF Pro Display', -apple-system, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">▶   Start Navigation</text>
+
+  <!-- Home indicator -->
+  <rect x="153" y="830" width="84" height="5" rx="2.5" fill="#1E293B" opacity="0.2"/>
+
+  <!-- Device frame -->
+  <rect width="390" height="844" rx="40" fill="none" stroke="#CBD5E1" stroke-width="1.5" opacity="0.5"/>
+</svg>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F4F8">
+
+    <!-- 1. Map View (Bottom Layer, Match Parent) -->
+    <com.example.indoornavapp.ui.view.IndoorMapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- 2. Floating Top Bar (Search & Back) -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="48dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_revert"
+                app:tint="@color/gray_800"/>
+                
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="Indoor Navigation"
+                android:textSize="18sp"
+                android:textColor="@color/gray_800"
+                android:textStyle="bold" />
+                
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_search"
+                app:tint="@color/gray_500"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- 3. Floating Right Panel (Floor Selector & Toggles) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- 2D/3D Toggle -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_3d_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="@color/white"
+            app:tint="@color/header_end"
+            android:src="@android:drawable/ic_menu_mapmode"
+            app:fabSize="mini" />
+
+        <!-- Vertical Floor Selector -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="6dp"
+            android:layout_marginBottom="16dp">
+            <LinearLayout
+                android:id="@+id/layout_floor_selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="12dp"
+                android:background="@color/white">
+                <!-- Floor buttons are injected dynamically in code -->
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Location Center -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_locate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@color/white"
+            app:tint="@color/gray_800"
+            android:src="@android:drawable/ic_menu_mylocation"
+            app:elevation="6dp"
+            app:fabSize="mini" />
+            
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_ar_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AR Nav"
+        app:icon="@android:drawable/ic_menu_camera"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="130dp"
+        app:backgroundTint="#059669"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
+        android:visibility="gone" />
+
+    <!-- 4. Bottom Sheet for Routing Options -->
+    <LinearLayout
+        android:id="@+id/bottom_sheet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_bottom_sheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:behavior_peekHeight="110dp"
+        app:behavior_hideable="false"
+        android:elevation="16dp"
+        android:clipToPadding="false"
+        android:outlineProvider="background">
+        
+        <!-- Drag Handle Indicator -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:background="#E5E7EB" />
+
+        <!-- Peek Content (Distance, Time, Primary Action) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:gravity="center_vertical">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0 m"
+                    android:textColor="@color/gray_800"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distance"
+                    android:textColor="@color/gray_500"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 min"
+                    android:textColor="@color/gray_800"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Est. Time"
+                    android:textColor="@color/gray_500"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+            
+            <Button
+                android:id="@+id/btn_navigate"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:text="Start"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/header_end"
+                android:textColor="@color/white"
+                app:cornerRadius="25dp"/>
+        </LinearLayout>
+
+        <View 
+            android:layout_width="match_parent" 
+            android:layout_height="1dp" 
+            android:background="#F3F4F6" 
+            android:layout_marginHorizontal="20dp" />
+
+        <!-- Expanded Content Area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Route Settings"
+                android:textSize="16sp"
+                android:textColor="@color/gray_800"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From:"
+                android:textSize="12sp"
+                android:textColor="@color/gray_500" />
+            <Spinner
+                android:id="@+id/spinner_start"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_spinner"
+                android:popupBackground="@color/white"
+                android:elevation="0dp"
+                android:spinnerMode="dropdown" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To:"
+                android:textSize="12sp"
+                android:textColor="@color/gray_500" />
+            <Spinner
+                android:id="@+id/spinner_end"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_spinner"
+                android:popupBackground="@color/white"
+                android:elevation="0dp"
+                android:spinnerMode="dropdown" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="40dp">
+                
+                <CheckBox
+                    android:id="@+id/cb_accessible"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Accessible (Avoid Stairs)" 
+                    android:textColor="@color/gray_800"
+                    android:textSize="14sp" />
+                    
+                <Spinner
+                    android:id="@+id/spinner_strategy"
+                    android:layout_width="140dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_spinner"
+                    android:popupBackground="@color/white"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
