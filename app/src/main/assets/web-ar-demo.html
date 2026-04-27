@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>AR Navigation Demo - Web Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        /* 摄像头画面 */
+        #camera {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        /* 方向箭头 */
+        #arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            font-size: 120px;
+            color: #4CAF50;
+            text-shadow: 4px 4px 15px rgba(0,0,0,0.9);
+            z-index: 10;
+            transition: transform 0.2s ease-out;
+        }
+        
+        /* 状态栏 */
+        #status {
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            color: #FFCC00;
+            font-size: 18px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.7);
+            padding: 14px 20px;
+            border-radius: 12px;
+            z-index: 20;
+        }
+        
+        /* 底部信息卡片 */
+        #info-card {
+            position: absolute;
+            bottom: 40px;
+            left: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            z-index: 20;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        
+        #destination {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        #destination::before {
+            content: '→';
+            color: #1D4ED8;
+        }
+        
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .info-item {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .info-label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .info-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1D4ED8;
+        }
+        
+        /* 校准按钮 */
+        #calibrate-btn {
+            position: absolute;
+            bottom: 220px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            z-index: 20;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(76,175,80,0.5);
+            transition: all 0.2s;
+        }
+        
+        #calibrate-btn:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+        
+        /* 模拟控制面板 */
+        #sim-controls {
+            position: absolute;
+            bottom: 300px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 16px 20px;
+            border-radius: 16px;
+            z-index: 15;
+        }
+        
+        #sim-controls label {
+            color: white;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 12px;
+        }
+        
+        #sim-controls input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            -webkit-appearance: none;
+            background: #333;
+            margin-bottom: 8px;
+        }
+        
+        #sim-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        
+        .coord-display {
+            display: flex;
+            justify-content: space-between;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        /* 到达提示 */
+        #arrived {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            color: #4CAF50;
+            font-weight: bold;
+            text-shadow: 4px 4px 15px rgba(0,0,0,0.9);
+            z-index: 25;
+            display: none;
+        }
+        
+        /* 操作说明 */
+        #instructions {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            z-index: 15;
+        }
+    </style>
+</head>
+<body>
+    <!-- 摄像头 -->
+    <video id="camera" autoplay playsinline webkit-playsinline></video>
+    
+    <!-- 方向箭头 -->
+    <div id="arrow">↑</div>
+    
+    <!-- 状态 -->
+    <div id="status">📷 Camera: Initializing...</div>
+    
+    <!-- 操作说明 -->
+    <div id="instructions">Use sliders to simulate position • Arrow points to destination</div>
+    
+    <!-- 模拟控制 -->
+    <div id="sim-controls">
+        <label>📍 Simulate Position</label>
+        <div class="coord-display">
+            <span>X: <span id="sim-x-val">30</span></span>
+            <span>Y: <span id="sim-y-val">20</span></span>
+        </div>
+        <input type="range" id="sim-x" min="0" max="85" value="30">
+        <input type="range" id="sim-y" min="0" max="55" value="20">
+    </div>
+    
+    <!-- 校准按钮 -->
+    <button id="calibrate-btn" onclick="calibrate()">📍 Scan QR to Calibrate</button>
+    
+    <!-- 到达提示 -->
+    <div id="arrived">✓ Arrived!</div>
+    
+    <!-- 信息卡片 -->
+    <div id="info-card">
+        <div id="destination">F1_MAIN_LOBBY</div>
+        <div class="row">
+            <div class="info-item">
+                <div class="info-label">Distance</div>
+                <div class="info-value" id="distance">-- m</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Position</div>
+                <div class="info-value" id="position">(--,--)</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Floor</div>
+                <div class="info-value" id="floor">F1</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟地图数据 - 与项目map_data.json对应
+        // 目的地: F1_MAIN_LOBBY (x: 70, y: 45)
+        const destination = { x: 70, y: 45, floor: 1, label: 'F1_MAIN_LOBBY' };
+        
+        // 地图边界 (与map_data.json一致)
+        const MAP_BOUNDS = { minX: 0, maxX: 85, minY: 0, maxY: 55 };
+        
+        // 当前模拟位置
+        let currentX = 30;
+        let currentY = 20;
+        let currentFloor = 1;
+        let isCalibrated = false;
+        
+        // 初始化摄像头
+        async function initCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { 
+                        facingMode: 'environment',
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                });
+                document.getElementById('camera').srcObject = stream;
+                updateStatus('Camera: Ready ✓', '#4CAF50');
+            } catch (err) {
+                // 尝试前置摄像头
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'user' }
+                    });
+                    document.getElementById('camera').srcObject = stream;
+                    updateStatus('Camera: Ready (front)', '#4CAF50');
+                } catch (err2) {
+                    updateStatus('Camera: ' + err2.message, '#FF0000');
+                    // 即使没有摄像头也继续测试
+                    document.getElementById('camera').style.background = 
+                        'linear-gradient(135deg, #1a1a2e, #16213e)';
+                }
+            }
+        }
+        
+        function updateStatus(text, color) {
+            document.getElementById('status').textContent = text;
+            document.getElementById('status').style.color = color;
+        }
+        
+        // 模拟QR校准
+        function calibrate() {
+            isCalibrated = true;
+            currentX = 30;
+            currentY = 20;
+            currentFloor = 1;
+            
+            updateStatus('✓ Calibrated at (30, 20) F1', '#4CAF50');
+            document.getElementById('calibrate-btn').textContent = '🔄 Re-calibrate (Scan QR)';
+            
+            updateNavigation();
+        }
+        
+        // 更新导航UI
+        function updateNavigation() {
+            if (!isCalibrated) {
+                document.getElementById('distance').textContent = '-- m';
+                document.getElementById('position').textContent = '(--,--)';
+                document.getElementById('arrow').style.opacity = '0.3';
+                return;
+            }
+            
+            document.getElementById('arrow').style.opacity = '1';
+            
+            // 计算到目标的距离和方向
+            const dx = destination.x - currentX;
+            const dy = destination.y - currentY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            // 转换: 1.4 map units ≈ 1 metre
+            const mapUnitsPerMetre = 1.4;
+            const distMetres = (dist / mapUnitsPerMetre).toFixed(1);
+            
+            // 计算方向角度 (弧度→角度)
+            // atan2(-dx, dy): 0度 = 向上(-Y方向)
+            const angle = Math.atan2(-dx, dy) * 180 / Math.PI;
+            
+            // 更新箭头旋转
+            document.getElementById('arrow').style.transform = 
+                `translate(-50%, -50%) rotate(${angle}deg)`;
+            
+            // 更新距离显示
+            document.getElementById('distance').textContent = distMetres + ' m';
+            document.getElementById('position').textContent = 
+                `(${currentX.toFixed(1)}, ${currentY.toFixed(1)})`;
+            document.getElementById('floor').textContent = 'F' + currentFloor;
+            
+            // 到达检测 (约2米)
+            if (distMetres < 2) {
+                document.getElementById('arrived').style.display = 'block';
+                document.getElementById('arrow').textContent = '✓';
+                document.getElementById('destination').textContent = 'Arrived! ✓';
+            } else {
+                document.getElementById('arrived').style.display = 'none';
+                document.getElementById('arrow').textContent = '↑';
+                document.getElementById('destination').textContent = destination.label;
+            }
+        }
+        
+        // 模拟位置滑块事件
+        document.getElementById('sim-x').addEventListener('input', (e) => {
+            currentX = parseFloat(e.target.value);
+            document.getElementById('sim-x-val').textContent = currentX;
+            updateNavigation();
+        });
+        
+        document.getElementById('sim-y').addEventListener('input', (e) => {
+            currentY = parseFloat(e.target.value);
+            document.getElementById('sim-y-val').textContent = currentY;
+            updateNavigation();
+        });
+        
+        // 键盘控制 (电脑测试用)
+        document.addEventListener('keydown', (e) => {
+            if (!isCalibrated) return;
+            
+            const step = 2;
+            switch(e.key) {
+                case 'ArrowUp':
+                    currentY = Math.max(MAP_BOUNDS.minY, currentY - step);
+                    break;
+                case 'ArrowDown':
+                    currentY = Math.min(MAP_BOUNDS.maxY, currentY + step);
+                    break;
+                case 'ArrowLeft':
+                    currentX = Math.max(MAP_BOUNDS.minX, currentX - step);
+                    break;
+                case 'ArrowRight':
+                    currentX = Math.min(MAP_BOUNDS.maxX, currentX + step);
+                    break;
+                default:
+                    return;
+            }
+            
+            // 更新滑块位置
+            document.getElementById('sim-x').value = currentX;
+            document.getElementById('sim-y').value = currentY;
+            document.getElementById('sim-x-val').textContent = currentX;
+            document.getElementById('sim-y-val').textContent = currentY;
+            
+            updateNavigation();
+        });
+        
+        // 启动
+        initCamera();
+    </script>
+</body>
+</html>

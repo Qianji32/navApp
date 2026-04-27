@@ -27,7 +27,13 @@ import com.example.indoornavapp.ui.view.IndoorMapView
 import java.util.concurrent.Executors
 import kotlin.math.sqrt
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,6 +49,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cbAccessible: CheckBox
     private lateinit var btnNavigate: Button
     private lateinit var btnBack: ImageView
+    private lateinit var actvSearch: AutoCompleteTextView
+    private lateinit var btnClearSearch: ImageView
+    
+    // Search data: display name -> node id
+    private var searchEntries = mutableListOf<Pair<String, String>>()
     
     // New Commercial UI Elements
     private lateinit var layoutFloorSelector: LinearLayout
@@ -107,6 +118,8 @@ class MainActivity : AppCompatActivity() {
         tvDistance = findViewById(R.id.tv_distance)
         tvTime = findViewById(R.id.tv_time)
         btnBack = findViewById(R.id.btn_back)
+        actvSearch = findViewById(R.id.actv_search)
+        btnClearSearch = findViewById(R.id.btn_clear_search)
 
         val bottomSheetLayout = findViewById<LinearLayout>(R.id.bottom_sheet_layout)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
@@ -146,6 +159,9 @@ class MainActivity : AppCompatActivity() {
             currentLocation?.floor?.let { floor -> switchFloor(floor) }
         }
 
+        // Search bar
+        setupSearchBar()
+
         // Load map data asynchronously
         loadMapData()
     }
@@ -154,6 +170,51 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         fusionProvider.removeListener(locationListener)
         fusionProvider.stop()
+    }
+
+    private fun setupSearchBar() {
+        // When user selects a suggestion, navigate to that node
+        actvSearch.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            val displayText = actvSearch.adapter.getItem(position) as? String ?: return@OnItemClickListener
+            val entry = searchEntries.find { it.first == displayText } ?: return@OnItemClickListener
+            val nodeId = entry.second
+            val graph = currentGraph ?: return@OnItemClickListener
+            val node = graph.nodes[nodeId] ?: return@OnItemClickListener
+
+            // Switch to the node's floor
+            switchFloor(node.floor)
+            // Highlight the node on map
+            mapView.highlightNode(nodeId)
+            // Set it as destination in the End spinner
+            val endAdapter = spinnerEnd.adapter
+            for (i in 0 until endAdapter.count) {
+                if (endAdapter.getItem(i) == nodeId) {
+                    spinnerEnd.setSelection(i)
+                    break
+                }
+            }
+
+            // Hide keyboard
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(actvSearch.windowToken, 0)
+            actvSearch.clearFocus()
+            btnClearSearch.visibility = View.VISIBLE
+        }
+
+        // Show/hide clear button based on text
+        actvSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                btnClearSearch.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        btnClearSearch.setOnClickListener {
+            actvSearch.text.clear()
+            mapView.highlightNode(null)
+            btnClearSearch.visibility = View.GONE
+        }
     }
 
     private fun loadMapData() {
@@ -217,6 +278,18 @@ class MainActivity : AppCompatActivity() {
                 spinnerEnd.setSelection(1)
             }
         }
+
+        // Populate search entries for AutoCompleteTextView
+        searchEntries.clear()
+        graph.nodes.values
+            .filter { it.type == "room-door" || it.type == "entrance" || it.type == "stair" || it.type == "elevator" }
+            .sortedBy { it.id }
+            .forEach { node ->
+                val display = if (node.label != null) "${node.label} (${node.id})" else node.id
+                searchEntries.add(display to node.id)
+            }
+        val searchAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, searchEntries.map { it.first })
+        actvSearch.setAdapter(searchAdapter)
     }
 
     private fun setupFloorSpinner(graph: Graph) {

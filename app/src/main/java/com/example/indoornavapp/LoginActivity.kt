@@ -61,7 +61,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tvSignUp.setOnClickListener {
-            Toast.makeText(this, "Registration coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, SignUpActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 }

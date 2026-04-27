@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -51,6 +52,9 @@ class IndoorMapView @JvmOverloads constructor(
     private var continuousX: Double? = null
     private var continuousY: Double? = null
     private var continuousFloor: Int? = null
+
+    // Highlighted node (from search)
+    private var highlightNodeId: String? = null
 
     // Map data coordinate range (Logic coordinates, matching max X/Y in JSON)
     private var mapWidthLogic = 95.0 // BUPT Library: X range 0-85 + padding
@@ -143,6 +147,14 @@ class IndoorMapView @JvmOverloads constructor(
         invalidate()
     }
 
+    /**
+     * Highlight a specific node (e.g. from search). Pass null to clear.
+     */
+    fun highlightNode(nodeId: String?) {
+        highlightNodeId = nodeId
+        invalidate()
+    }
+
     fun recenter() {
         val locX: Double
         val locY: Double
@@ -208,16 +220,28 @@ class IndoorMapView @JvmOverloads constructor(
 
         // 2. Draw all nodes (Debugging or interactive spots)
         val floorFilter = currentFloor
+        // Collision detection: keep track of drawn label bounding rects
+        val drawnLabelRects = mutableListOf<RectF>()
 
         currentGraph?.let { graph ->
             val nodeRadius = 8f / scaleFactor // Keep node size visually consistent when zoomed
             textPaint.textSize = 24f / scaleFactor // Keep text size readable and consistent
             
+            val highlightPaint = Paint().apply {
+                color = Color.parseColor("#EF4444")
+                style = Paint.Style.STROKE
+                strokeWidth = 4f / scaleFactor
+                isAntiAlias = true
+            }
+            
             // Reuse variables inside loop
             var screenX: Float
             var screenY: Float
             
-            for (node in graph.nodes.values) {
+            // Sort: draw highlighted node last so it's on top
+            val sortedNodes = graph.nodes.values.sortedBy { it.id == highlightNodeId }
+            
+            for (node in sortedNodes) {
                 if (floorFilter != null && node.floor != floorFilter) continue
 
                 screenX = (node.x * scaleX).toFloat()
@@ -233,10 +257,33 @@ class IndoorMapView @JvmOverloads constructor(
                 }
                 
                 canvas.drawCircle(screenX, screenY, nodeRadius, nodePaint)
+
+                // Draw highlight ring on search-selected node
+                if (node.id == highlightNodeId) {
+                    canvas.drawCircle(screenX, screenY, nodeRadius * 2.5f, highlightPaint)
+                }
                 
-                // Draw label if available
-                if (node.label != null) {
-                    canvas.drawText(node.label, screenX, screenY - nodeRadius - (4f / scaleFactor), textPaint)
+                // Draw label with collision avoidance
+                val labelText = node.label
+                if (labelText != null) {
+                    val labelWidth = textPaint.measureText(labelText)
+                    val labelHeight = textPaint.textSize
+                    val labelY = screenY - nodeRadius - (4f / scaleFactor)
+                    val labelRect = RectF(
+                        screenX - labelWidth / 2f,
+                        labelY - labelHeight,
+                        screenX + labelWidth / 2f,
+                        labelY
+                    )
+
+                    // Always draw highlighted node label; otherwise check overlap
+                    val forceShow = node.id == highlightNodeId
+                    val overlaps = !forceShow && drawnLabelRects.any { RectF.intersects(it, labelRect) }
+
+                    if (!overlaps) {
+                        canvas.drawText(labelText, screenX, labelY, textPaint)
+                        drawnLabelRects.add(labelRect)
+                    }
                 }
             }
         }

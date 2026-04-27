@@ -38,20 +38,30 @@
                 android:src="@android:drawable/ic_menu_revert"
                 app:tint="@color/gray_800"/>
                 
-            <TextView
+            <AutoCompleteTextView
+                android:id="@+id/actv_search"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:layout_marginStart="16dp"
-                android:text="Indoor Navigation"
-                android:textSize="18sp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Search room, stair, entrance…"
+                android:textSize="15sp"
                 android:textColor="@color/gray_800"
-                android:textStyle="bold" />
-                
+                android:textColorHint="@color/gray_400"
+                android:background="@android:color/transparent"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:completionThreshold="1"
+                android:dropDownWidth="match_parent" />
+
             <ImageView
+                android:id="@+id/btn_clear_search"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_search"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:visibility="gone"
                 app:tint="@color/gray_500"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -129,7 +139,7 @@
         android:orientation="vertical"
         android:background="@drawable/bg_bottom_sheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        app:behavior_peekHeight="110dp"
+        app:behavior_peekHeight="100dp"
         app:behavior_hideable="false"
         android:elevation="16dp"
         android:clipToPadding="false"
@@ -148,7 +158,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="20dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
             android:gravity="center_vertical">
             <LinearLayout
                 android:layout_width="0dp"
@@ -161,14 +172,14 @@
                     android:layout_height="wrap_content"
                     android:text="0.0 m"
                     android:textColor="@color/gray_800"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Distance"
                     android:textColor="@color/gray_500"
-                    android:textSize="12sp"/>
+                    android:textSize="11sp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -181,26 +192,27 @@
                     android:layout_height="wrap_content"
                     android:text="0 min"
                     android:textColor="@color/gray_800"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Est. Time"
                     android:textColor="@color/gray_500"
-                    android:textSize="12sp"/>
+                    android:textSize="11sp"/>
             </LinearLayout>
             
             <Button
                 android:id="@+id/btn_navigate"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:minWidth="100dp"
                 android:text="Start"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:backgroundTint="@color/header_end"
                 android:textColor="@color/white"
-                app:cornerRadius="25dp"/>
+                app:cornerRadius="20dp"/>
         </LinearLayout>
 
         <View 

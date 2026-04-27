@@ -30,6 +30,10 @@
             android:exported="false"
             android:theme="@style/Theme.IndoorNavApp.Splash" />
         <activity
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:theme="@style/Theme.IndoorNavApp.Splash" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

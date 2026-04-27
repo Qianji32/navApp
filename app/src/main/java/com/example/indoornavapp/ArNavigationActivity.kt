@@ -88,20 +88,46 @@ class ArNavigationActivity : AppCompatActivity() {
         vioProvider.addListener(locationListener)
 
         // ARSceneView frame callback → feed VIO provider
-        sceneView.onSessionUpdated = { _, frame ->
+        sceneView.onSessionUpdated = { session, frame ->
             val camera = frame.camera
-            if (camera.trackingState == com.google.ar.core.TrackingState.TRACKING) {
-                val pose = camera.pose
-                vioProvider.onArPoseUpdate(pose.tx(), pose.tz())
+            
+            // 处理AR跟踪状态
+            when (camera.trackingState) {
+                com.google.ar.core.TrackingState.TRACKING -> {
+                    val pose = camera.pose
+                    vioProvider.onArPoseUpdate(pose.tx(), pose.tz())
 
-                if (vioProvider.isCalibrated) {
+                    if (vioProvider.isCalibrated) {
+                        runOnUiThread {
+                            tvStatus.text = "Tracking ●"
+                            tvStatus.setTextColor(0xFF4CAF50.toInt())
+                        }
+                    } else {
+                        runOnUiThread {
+                            tvStatus.text = "AR Ready - Scan QR to start"
+                            tvStatus.setTextColor(0xFFFFCC00.toInt())
+                        }
+                    }
+                }
+                com.google.ar.core.TrackingState.PAUSED -> {
                     runOnUiThread {
-                        tvStatus.text = "Tracking ●"
-                        tvStatus.setTextColor(0xFF4CAF50.toInt())
+                        tvStatus.text = "Move device slowly to track"
+                        tvStatus.setTextColor(0xFFFFCC00.toInt())
+                    }
+                }
+                com.google.ar.core.TrackingState.STOPPED -> {
+                    runOnUiThread {
+                        tvStatus.text = "AR Unavailable"
+                        tvStatus.setTextColor(0xFFFF0000.toInt())
                     }
                 }
             }
         }
+
+        // 显示方向箭头（即使未校准也能看到方向）
+        tvDirection.visibility = View.VISIBLE
+        tvDirection.text = "↑"
+        tvDirection.rotation = 0f
 
         // Show nav info card
         cardNavInfo.visibility = View.VISIBLE
@@ -179,10 +205,12 @@ class ArNavigationActivity : AppCompatActivity() {
             val distMetres = dist / vioProvider.mapUnitsPerMetre
             tvDistance.text = String.format("%.1f m", distMetres)
 
-            // Direction arrow
+            // 始终显示方向箭头
             tvDirection.visibility = View.VISIBLE
             val angle = atan2(-dx, dy)  // in radians, 0=up
             tvDirection.rotation = Math.toDegrees(angle.toDouble()).toFloat()
+            tvDirection.text = "↑"
+            tvDirection.setTextColor(0xFF4CAF50.toInt())
 
             // Arrived check (~2m)
             if (distMetres < 2.0) {
@@ -191,6 +219,12 @@ class ArNavigationActivity : AppCompatActivity() {
                 tvDirection.setTextColor(0xFF4CAF50.toInt())
                 tvDestination.text = "Arrived!"
             }
+        } else {
+            // 无目的地时显示探索模式
+            tvDirection.visibility = View.VISIBLE
+            tvDirection.text = "?"
+            tvDirection.rotation = 0f
+            tvDirection.setTextColor(0xFFFFCC00.toInt())
         }
     }
 }
