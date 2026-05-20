@@ -5,6 +5,9 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.indoornavapp.algo.PathFinder
+import com.example.indoornavapp.algo.PathResult
+import com.example.indoornavapp.algo.RouteOptions
 import com.example.indoornavapp.location.IndoorLocation
 import com.example.indoornavapp.location.LocationListener
 import com.example.indoornavapp.location.VioLocationProvider
@@ -37,6 +40,9 @@ class ArNavigationActivity : AppCompatActivity() {
     private var currentLocation: IndoorLocation? = null
     private var destinationNode: Node? = null
     private var pathNodeIds: List<String>? = null
+    private var pathResult: PathResult? = null
+    private var latestCameraYawDeg: Float = 0f
+    private var targetBearingDeg: Float = 0f
 
     private val barcodeLauncher = registerForActivityResult(
         ScanContract()
@@ -95,11 +101,13 @@ class ArNavigationActivity : AppCompatActivity() {
             when (camera.trackingState) {
                 com.google.ar.core.TrackingState.TRACKING -> {
                     val pose = camera.pose
+                    latestCameraYawDeg = poseYawDeg(pose)
                     vioProvider.onArPoseUpdate(pose.tx(), pose.tz())
+                    updateDirectionRotation()
 
                     if (vioProvider.isCalibrated) {
                         runOnUiThread {
-                            tvStatus.text = "Tracking ●"
+                            tvStatus.text = "Tracking"
                             tvStatus.setTextColor(0xFF4CAF50.toInt())
                         }
                     } else {
@@ -126,13 +134,13 @@ class ArNavigationActivity : AppCompatActivity() {
 
         // 显示方向箭头（即使未校准也能看到方向）
         tvDirection.visibility = View.VISIBLE
-        tvDirection.text = "↑"
+        tvDirection.text = "\u2191"
         tvDirection.rotation = 0f
 
         // Show nav info card
         cardNavInfo.visibility = View.VISIBLE
         if (destinationNode != null) {
-            tvDestination.text = "→ ${destinationNode!!.label ?: destinationNode!!.id}"
+            tvDestination.text = "To ${destinationNode!!.label ?: destinationNode!!.id}"
         } else {
             tvDestination.text = "AR Positioning Mode"
         }
@@ -159,8 +167,9 @@ class ArNavigationActivity : AppCompatActivity() {
         barcodeLauncher.launch(options)
     }
 
-    private fun onQrScanned(nodeId: String) {
+    private fun onQrScanned(content: String) {
         val g = graph ?: return
+        val nodeId = content.split("|").firstOrNull()?.trim().orEmpty()
         val node = g.nodes[nodeId]
         if (node == null) {
             Toast.makeText(this, "Unknown node: $nodeId", Toast.LENGTH_SHORT).show()
@@ -188,6 +197,9 @@ class ArNavigationActivity : AppCompatActivity() {
         tvStatus.text = "Calibrated at ${node.label ?: node.id}"
         tvStatus.setTextColor(0xFF4CAF50.toInt())
         tvScanBtn.text = "Re-calibrate (Scan QR)"
+        destinationNode?.let { dest ->
+            pathResult = PathFinder().findPathResult(g, node.id, dest.id, RouteOptions())
+        }
 
         Toast.makeText(this, "Position set: ${node.label ?: node.id}", Toast.LENGTH_SHORT).show()
     }
@@ -198,23 +210,26 @@ class ArNavigationActivity : AppCompatActivity() {
 
         val dest = destinationNode
         if (dest != null) {
-            val dx = dest.x - location.x
-            val dy = dest.y - location.y
-            val dist = sqrt(dx * dx + dy * dy)
+            val target = getGuidanceTarget(location) ?: dest
+            val dx = target.x - location.x
+            val dy = target.y - location.y
+            val destDx = dest.x - location.x
+            val destDy = dest.y - location.y
+            val dist = sqrt(destDx * destDx + destDy * destDy)
             // Convert map units to approximate metres (÷ mapUnitsPerMetre)
             val distMetres = dist / vioProvider.mapUnitsPerMetre
             tvDistance.text = String.format("%.1f m", distMetres)
 
             // 始终显示方向箭头
             tvDirection.visibility = View.VISIBLE
-            val angle = atan2(-dx, dy)  // in radians, 0=up
-            tvDirection.rotation = Math.toDegrees(angle.toDouble()).toFloat()
-            tvDirection.text = "↑"
+            targetBearingDeg = Math.toDegrees(atan2(dx, -dy)).toFloat()
+            updateDirectionRotation()
+            tvDirection.text = "\u2191"
             tvDirection.setTextColor(0xFF4CAF50.toInt())
 
             // Arrived check (~2m)
             if (distMetres < 2.0) {
-                tvDirection.text = "✓"
+                tvDirection.text = "\u2713"
                 tvDirection.rotation = 0f
                 tvDirection.setTextColor(0xFF4CAF50.toInt())
                 tvDestination.text = "Arrived!"
@@ -226,5 +241,38 @@ class ArNavigationActivity : AppCompatActivity() {
             tvDirection.rotation = 0f
             tvDirection.setTextColor(0xFFFFCC00.toInt())
         }
+    }
+
+    private fun getGuidanceTarget(location: IndoorLocation): Node? {
+        val path = pathResult?.path ?: return destinationNode
+        return path.firstOrNull { node ->
+            node.floor == location.floor && sqrt(
+                (node.x - location.x) * (node.x - location.x) +
+                    (node.y - location.y) * (node.y - location.y)
+            ) > 3.0
+        } ?: destinationNode
+    }
+
+    private fun updateDirectionRotation() {
+        runOnUiThread {
+            tvDirection.rotation = normalizeDegrees(targetBearingDeg - latestCameraYawDeg)
+        }
+    }
+
+    private fun poseYawDeg(pose: com.google.ar.core.Pose): Float {
+        val qx = pose.qx()
+        val qy = pose.qy()
+        val qz = pose.qz()
+        val qw = pose.qw()
+        val sinyCosp = 2.0 * (qw * qy + qx * qz)
+        val cosyCosp = 1.0 - 2.0 * (qy * qy + qz * qz)
+        return Math.toDegrees(atan2(sinyCosp, cosyCosp)).toFloat()
+    }
+
+    private fun normalizeDegrees(value: Float): Float {
+        var normalized = value % 360f
+        if (normalized < -180f) normalized += 360f
+        if (normalized > 180f) normalized -= 360f
+        return normalized
     }
 }

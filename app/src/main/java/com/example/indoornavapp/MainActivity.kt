@@ -1,5 +1,8 @@
 package com.example.indoornavapp
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -9,7 +12,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.indoornavapp.algo.PathFinder
@@ -48,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spinnerStrategy: Spinner
     private lateinit var cbAccessible: CheckBox
     private lateinit var btnNavigate: Button
+    private lateinit var btnReroute: Button
     private lateinit var btnBack: ImageView
     private lateinit var actvSearch: AutoCompleteTextView
     private lateinit var btnClearSearch: ImageView
@@ -60,6 +66,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fab3dToggle: FloatingActionButton
     private lateinit var fabLocate: FloatingActionButton
     private lateinit var fabArMode: ExtendedFloatingActionButton
+    private lateinit var fabDemoMode: ExtendedFloatingActionButton
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     private var is3DMode = false
@@ -68,26 +75,51 @@ class MainActivity : AppCompatActivity() {
     // New UI Elements
     private lateinit var tvDistance: TextView
     private lateinit var tvTime: TextView
+    private lateinit var tvRoutePoints: TextView
     
     // Repository to load data
     private val repository = MapRepository()
     // Path finding algorithm
     private val pathFinder = PathFinder()
     private val qrProvider = QrLocationProvider()
-    private val pdrProvider = PdrLocationProvider()
-    private val fusionProvider = FusionLocationProvider(listOf(qrProvider, pdrProvider))
+    private val pdrProvider by lazy { PdrLocationProvider(this) }
+    private val fusionProvider by lazy { FusionLocationProvider(listOf(qrProvider, pdrProvider)) }
     
     private var currentGraph: Graph? = null
     private var currentPath: List<Node>? = null
     private var currentLocation: IndoorLocation? = null
     private var lastReplanTimeMs: Long = 0L
+    private var activeStartId: String? = null
+    private var activeEndId: String? = null
+    private var isNavigationInProgress = false
+    private var isDemoRunning = false
+    private var demoFrames: List<IndoorLocation> = emptyList()
+    private var demoFrameIndex = 0
+    private var demoFrameDelayMs = 180L
+
+    private val demoRunnable = object : Runnable {
+        override fun run() {
+            playNextDemoFrame()
+        }
+    }
+
+    private val activityRecognitionPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+        fusionProvider.stop()
+        fusionProvider.start()
+    }
 
     private val locationListener = LocationListener { location ->
         currentLocation = location
         val graph = currentGraph ?: return@LocationListener
         val node = graph.nodes[location.nodeId]
         runOnUiThread {
-            mapView.setCurrentLocation(node)
+            if (location.source == "QR" && node != null) {
+                mapView.setCurrentLocation(node)
+            } else {
+                mapView.setCurrentLocationXY(location.x, location.y, location.floor)
+            }
             maybeReplanForDeviation()
         }
     }
@@ -111,12 +143,15 @@ class MainActivity : AppCompatActivity() {
         fab3dToggle = findViewById(R.id.fab_3d_toggle)
         fabLocate = findViewById(R.id.fab_locate)
         fabArMode = findViewById(R.id.fab_ar_mode)
+        fabDemoMode = findViewById(R.id.fab_demo_mode)
         
         spinnerStrategy = findViewById(R.id.spinner_strategy)
         cbAccessible = findViewById(R.id.cb_accessible)
         btnNavigate = findViewById(R.id.btn_navigate)
+        btnReroute = findViewById(R.id.btn_reroute)
         tvDistance = findViewById(R.id.tv_distance)
         tvTime = findViewById(R.id.tv_time)
+        tvRoutePoints = findViewById(R.id.tv_route_points)
         btnBack = findViewById(R.id.btn_back)
         actvSearch = findViewById(R.id.actv_search)
         btnClearSearch = findViewById(R.id.btn_clear_search)
@@ -125,20 +160,27 @@ class MainActivity : AppCompatActivity() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        qrProvider.addListener(locationListener)
+        fusionProvider.addListener(locationListener)
 
         fusionProvider.start()
+        requestActivityRecognitionPermissionIfNeeded()
         
         // Listeners
-        btnNavigate.setOnClickListener { onNavigateClicked() }
+        btnNavigate.setOnClickListener {
+            if (!isNavigationInProgress) {
+                applySelectedRoute()
+            }
+        }
+        btnReroute.setOnClickListener { onRerouteClicked() }
         btnBack.setOnClickListener { finish() } // Return to HomeActivity
 
         fabArMode.setOnClickListener {
-            val intent = android.content.Intent(this, ArNavigationActivity::class.java)
+            // Use camera navigation (works without ARCore)
+            val intent = android.content.Intent(this, CameraNavigationActivity::class.java)
             currentPath?.let { path ->
                 intent.putExtra("PATH_NODE_IDS", path.map { it.id }.toTypedArray())
             }
-            val destId = spinnerEnd.selectedItem as? String
+            val destId = activeEndId ?: (spinnerEnd.selectedItem as? String)
             if (destId != null) {
                 intent.putExtra("DEST_NODE_ID", destId)
             }
@@ -159,6 +201,10 @@ class MainActivity : AppCompatActivity() {
             currentLocation?.floor?.let { floor -> switchFloor(floor) }
         }
 
+        fabDemoMode.setOnClickListener {
+            if (isDemoRunning) stopDemoNavigation() else startDemoNavigation()
+        }
+
         // Search bar
         setupSearchBar()
 
@@ -168,8 +214,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        mapView.removeCallbacks(demoRunnable)
         fusionProvider.removeListener(locationListener)
         fusionProvider.stop()
+    }
+
+    private fun requestActivityRecognitionPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACTIVITY_RECOGNITION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) return
+
+        activityRecognitionPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
     }
 
     private fun setupSearchBar() {
@@ -269,15 +327,22 @@ class MainActivity : AppCompatActivity() {
             if (startIndex >= 0) {
                 spinnerStart.setSelection(startIndex)
                 qrProvider.updateFromNode(graph, nodeIds[startIndex])
+                pdrProvider.resetToNode(graph, nodeIds[startIndex])
             } else {
                 spinnerStart.setSelection(0)
                 qrProvider.updateFromNode(graph, nodeIds[0])
+                pdrProvider.resetToNode(graph, nodeIds[0])
             }
 
             if (nodeIds.size > 1) {
                 spinnerEnd.setSelection(1)
             }
         }
+
+        spinnerStart.onItemSelectedListener = SimpleItemSelectedListener { updateRouteActionState() }
+        spinnerEnd.onItemSelectedListener = SimpleItemSelectedListener { updateRouteActionState() }
+        cbAccessible.setOnCheckedChangeListener { _, _ -> updateRouteActionState() }
+        updateRouteActionState()
 
         // Populate search entries for AutoCompleteTextView
         searchEntries.clear()
@@ -340,7 +405,240 @@ class MainActivity : AppCompatActivity() {
         spinnerStrategy.setSelection(0)
     }
 
-    private fun onNavigateClicked() {
+    private fun onRerouteClicked() {
+        applySelectedRoute()
+    }
+
+    private fun startDemoNavigation() {
+        val graph = currentGraph ?: return
+        val startId = "F1_ENTRANCE"
+        val endId = "F3_D_HUMANITY"
+        val result = pathFinder.findPathResult(graph, startId, endId, RouteOptions())
+
+        if (result == null) {
+            Toast.makeText(this, "Demo route not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        setSpinnerSelection(spinnerStart, startId)
+        setSpinnerSelection(spinnerEnd, endId)
+
+        currentPath = result.path
+        activeStartId = startId
+        activeEndId = endId
+        isNavigationInProgress = true
+        mapView.setPath(result.path)
+
+        tvRoutePoints.text = "Demo: Entrance -> Humanities Reading"
+        tvDistance.text = String.format("%.1f m", result.totalDistance)
+        tvTime.text = "${result.estimatedTimeMinutes} min"
+        fabArMode.visibility = View.VISIBLE
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
+        demoFrames = buildDemoFrames(result.path)
+        demoFrameIndex = 0
+        isDemoRunning = true
+        fabDemoMode.text = "Stop"
+        fabDemoMode.visibility = View.GONE
+        mapView.removeCallbacks(demoRunnable)
+        playNextDemoFrame()
+    }
+
+    private fun stopDemoNavigation() {
+        isDemoRunning = false
+        demoFrames = emptyList()
+        demoFrameIndex = 0
+        fabDemoMode.text = "Demo"
+        fabDemoMode.visibility = View.VISIBLE
+        mapView.removeCallbacks(demoRunnable)
+        updateRouteActionState()
+    }
+
+    private fun playNextDemoFrame() {
+        if (!isDemoRunning || demoFrameIndex >= demoFrames.size) {
+            stopDemoNavigation()
+            return
+        }
+
+        val location = demoFrames[demoFrameIndex++]
+        currentLocation = location
+        mapView.setCurrentLocationXY(location.x, location.y, location.floor)
+        switchFloor(location.floor)
+        tvDistance.text = String.format("%.1f m left", estimateRemainingDemoDistance(location))
+
+        mapView.postDelayed(demoRunnable, demoFrameDelayMs)
+    }
+
+    private fun buildDemoFrames(path: List<Node>): List<IndoorLocation> {
+        if (path.isEmpty()) return emptyList()
+        val frames = mutableListOf<IndoorLocation>()
+        var frameNo = 0
+
+        for (i in 0 until path.size - 1) {
+            val from = path[i]
+            val to = path[i + 1]
+            val dx = to.x - from.x
+            val dy = to.y - from.y
+            val steps = 8
+
+            for (step in 0 until steps) {
+                val t = step.toDouble() / steps
+                val drift = kotlin.math.sin((frameNo / 5.0)) * 0.85
+                val wobble = if (frameNo in 22..38 || frameNo in 58..72) drift else drift * 0.25
+                val floor = if (t < 0.5) from.floor else to.floor
+                frames.add(
+                    IndoorLocation(
+                        nodeId = from.id,
+                        x = from.x + dx * t + wobble,
+                        y = from.y + dy * t - wobble * 0.55,
+                        floor = floor,
+                        confidence = 0.58,
+                        source = "Demo"
+                    )
+                )
+                frameNo++
+            }
+        }
+
+        val end = path.last()
+        frames.add(
+            IndoorLocation(
+                nodeId = end.id,
+                x = end.x,
+                y = end.y,
+                floor = end.floor,
+                confidence = 0.95,
+                source = "Demo"
+            )
+        )
+        demoFrameDelayMs = (55_000L / frames.size.coerceAtLeast(1)).coerceAtLeast(120L)
+        return frames
+    }
+
+    private fun estimateRemainingDemoDistance(location: IndoorLocation): Double {
+        val destination = currentGraph?.nodes?.get("F3_D_HUMANITY") ?: return 0.0
+        val dx = destination.x - location.x
+        val dy = destination.y - location.y
+        return sqrt(dx * dx + dy * dy)
+    }
+
+    private fun setSpinnerSelection(spinner: Spinner, nodeId: String) {
+        val adapter = spinner.adapter ?: return
+        for (i in 0 until adapter.count) {
+            if (adapter.getItem(i) == nodeId) {
+                spinner.setSelection(i)
+                return
+            }
+        }
+    }
+
+    private fun applySelectedRoute() {
+        if (isDemoRunning) stopDemoNavigation()
+        val graph = currentGraph ?: return
+        val startId = spinnerStart.selectedItem as? String
+        val endId = spinnerEnd.selectedItem as? String
+
+        if (startId == null || endId == null) {
+            Toast.makeText(this, "Please select start and end points", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (startId == endId) {
+            Toast.makeText(this, "Current location is destination", Toast.LENGTH_SHORT).show()
+            mapView.setPath(null)
+            tvRoutePoints.text = formatRouteLabel(startId, endId)
+            tvDistance.text = "0.0 m"
+            tvTime.text = "0 min"
+            currentPath = null
+            activeStartId = null
+            activeEndId = null
+            isNavigationInProgress = false
+            updateRouteActionState()
+            return
+        }
+
+        val result = pathFinder.findPathResult(graph, startId, endId, readRouteOptions())
+        val path = result?.path
+
+        if (path != null) {
+            mapView.setPath(path)
+            currentPath = path
+            activeStartId = startId
+            activeEndId = endId
+            isNavigationInProgress = true
+
+            val startNode = path.first()
+            currentLocation = IndoorLocation(
+                nodeId = startNode.id,
+                x = startNode.x,
+                y = startNode.y,
+                floor = startNode.floor,
+                confidence = 0.65,
+                source = "RouteStart"
+            )
+            pdrProvider.resetToNode(graph, startNode.id)
+            mapView.setCurrentLocation(startNode)
+            switchFloor(startNode.floor)
+
+            tvRoutePoints.text = formatRouteLabel(startId, endId)
+            tvDistance.text = String.format("%.1f m", result.totalDistance)
+
+            val floorHint = if (result.floorTransitions.isNotEmpty()) {
+                " (${result.floorTransitions.size} floor change)"
+            } else {
+                ""
+            }
+            tvTime.text = "${result.estimatedTimeMinutes} min$floorHint"
+
+            updateRouteActionState()
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            fabArMode.visibility = View.VISIBLE
+        } else {
+            mapView.setPath(null)
+            Toast.makeText(this, "No path found between selected points", Toast.LENGTH_SHORT).show()
+            tvDistance.text = "--"
+            tvTime.text = "--"
+            currentPath = null
+            activeStartId = null
+            activeEndId = null
+            isNavigationInProgress = false
+            updateRouteActionState()
+        }
+    }
+
+    private fun updateRouteActionState() {
+        if (!::btnNavigate.isInitialized || !::btnReroute.isInitialized || !::tvRoutePoints.isInitialized) return
+
+        val selectedStartId = spinnerStart.selectedItem as? String
+        val selectedEndId = spinnerEnd.selectedItem as? String
+        val hasDifferentSelection = isNavigationInProgress &&
+            selectedStartId != null &&
+            selectedEndId != null &&
+            (selectedStartId != activeStartId || selectedEndId != activeEndId)
+
+        if (selectedStartId != null && selectedEndId != null) {
+            tvRoutePoints.text = if (hasDifferentSelection) {
+                "New: ${formatRouteLabel(selectedStartId, selectedEndId)}"
+            } else {
+                formatRouteLabel(selectedStartId, selectedEndId)
+            }
+        }
+
+        btnNavigate.text = if (isNavigationInProgress) "In Progress" else "Start"
+        btnNavigate.isEnabled = !isNavigationInProgress
+        btnNavigate.alpha = if (isNavigationInProgress) 0.65f else 1.0f
+        btnReroute.visibility = if (hasDifferentSelection) View.VISIBLE else View.GONE
+    }
+
+    private fun formatRouteLabel(startId: String, endId: String): String {
+        val graph = currentGraph
+        val startLabel = graph?.nodes?.get(startId)?.let { it.label ?: it.id } ?: startId
+        val endLabel = graph?.nodes?.get(endId)?.let { it.label ?: it.id } ?: endId
+        return "$startLabel -> $endLabel"
+    }
+
+    @Suppress("unused", "UNCHECKED_CAST")
+    private fun legacyNavigateClicked() {
         val graph = currentGraph ?: return
         
         val startId = spinnerStart.selectedItem as? String
@@ -382,7 +680,7 @@ class MainActivity : AppCompatActivity() {
             tvTime.text = "${result.estimatedTimeMinutes} min$floorHint"
 
             // Change button behavior if bottom sheet is collapsed
-            btnNavigate.text = "In Progress"
+            btnNavigate.text = "Re-route"  // 改为"重新导航"
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             
             // Show AR Mode Fab when navigation path is found.
@@ -390,7 +688,7 @@ class MainActivity : AppCompatActivity() {
 
             val currentNodeId = currentLocation?.nodeId
             if (currentNodeId != null && graph.nodes.containsKey(currentNodeId)) {
-                val position = (spinnerStart.adapter as ArrayAdapter<String>).getPosition(currentNodeId)
+                val position = (spinnerStart.adapter as? ArrayAdapter<String>)?.getPosition(currentNodeId) ?: -1
                 if (position >= 0) {
                     spinnerStart.setSelection(position)
                 }

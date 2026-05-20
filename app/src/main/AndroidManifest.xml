@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-feature android:name="android.hardware.camera.ar" android:required="false" />
 
@@ -47,6 +48,9 @@
             android:exported="false" />
         <activity
             android:name=".Map3DActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CameraNavigationActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"

@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <io.github.sceneview.ar.ARSceneView
-        android:id="@+id/sceneView"
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -37,45 +37,50 @@
             android:gravity="center"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
-            android:text="Scan QR to calibrate"
-            android:textColor="#FFCC00"
+            android:text="Camera mode - scan QR to start"
+            android:textColor="#4CAF50"
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <FrameLayout
+        <LinearLayout
             android:id="@+id/btn_scan_qr"
-            android:layout_width="82dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:background="@drawable/bg_scan_button"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_qr_scan"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/tv_scan_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginStart="6dp"
                 android:text="Scan"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold" />
-        </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_direction_arrow"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
         android:layout_gravity="center"
-        android:background="@drawable/bg_arrow_circle"
         android:gravity="center"
+        android:background="@drawable/bg_arrow_circle"
         android:shadowColor="#000000"
         android:shadowRadius="8"
         android:text="&#8593;"
-        android:textColor="#4CAF50"
-        android:textSize="50sp"
-        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:textSize="46sp"
         android:visibility="gone" />
 
     <LinearLayout
@@ -97,7 +102,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="AR positioning mode"
+            android:text="Camera positioning mode"
             android:textColor="@color/gray_800"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -113,9 +118,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="-- m"
-                android:textColor="@color/blue_600"
-                android:textSize="18sp"
+                android:text="--"
+                android:textColor="@color/gray_800"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -124,19 +129,58 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.4"
                 android:gravity="center"
-                android:text="(--,--)"
+                android:text="--"
                 android:textColor="@color/gray_700"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_ar_source"
+                android:id="@+id/tv_ar_eta"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="VIO"
-                android:textColor="#10B981"
-                android:textSize="13sp"
+                android:text="--"
+                android:textColor="@color/gray_800"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_nav_instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_instruction_chip"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+            android:text="Scan QR to start"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:id="@+id/btn_refresh_route"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_icon_orange"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_refresh"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Refresh route"
+                android:textColor="@color/white"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

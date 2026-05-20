@@ -48,6 +48,10 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.sceneview)
+    implementation(libs.camerax.core)
+    implementation(libs.camerax.camera2)
+    implementation(libs.camerax.lifecycle)
+    implementation(libs.camerax.view)
     
     // Barcode scanning (ZXing via JourneyApps)
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")

@@ -48,7 +48,8 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, Map3DActivity::class.java))
         }
         findViewById<View>(R.id.card_ar).setOnClickListener {
-            startActivity(Intent(this, ArNavigationActivity::class.java))
+            // Use camera navigation instead of AR (works without ARCore)
+            startActivity(Intent(this, CameraNavigationActivity::class.java))
         }
         findViewById<View>(R.id.card_admin).setOnClickListener {
             startActivity(Intent(this, QrGeneratorActivity::class.java))

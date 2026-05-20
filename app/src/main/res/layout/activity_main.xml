@@ -131,6 +131,19 @@
         app:iconTint="@color/white"
         android:visibility="gone" />
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_demo_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Demo"
+        app:icon="@android:drawable/ic_media_play"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="184dp"
+        app:backgroundTint="#F97316"
+        android:textColor="@color/white"
+        app:iconTint="@color/white" />
+
     <!-- 4. Bottom Sheet for Routing Options -->
     <LinearLayout
         android:id="@+id/bottom_sheet_layout"
@@ -166,6 +179,16 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_route_points"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select route"
+                    android:textColor="@color/gray_800"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:ellipsize="end"/>
                 <TextView
                     android:id="@+id/tv_distance"
                     android:layout_width="wrap_content"
@@ -212,6 +235,20 @@
                 android:textStyle="bold"
                 android:backgroundTint="@color/header_end"
                 android:textColor="@color/white"
+                app:cornerRadius="20dp"/>
+
+            <Button
+                android:id="@+id/btn_reroute"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:minWidth="108dp"
+                android:text="Re-route"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/card_orange_end"
+                android:textColor="@color/white"
+                android:visibility="gone"
                 app:cornerRadius="20dp"/>
         </LinearLayout>
 

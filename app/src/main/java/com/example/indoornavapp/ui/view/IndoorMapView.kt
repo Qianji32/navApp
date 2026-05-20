@@ -43,6 +43,31 @@ class IndoorMapView @JvmOverloads constructor(
         textAlign = Paint.Align.CENTER
     }
 
+    private val currentLocationHaloPaint = Paint().apply {
+        color = Color.parseColor("#3B82F6")
+        style = Paint.Style.FILL
+        alpha = 55
+        isAntiAlias = true
+    }
+
+    private val currentLocationFillPaint = Paint().apply {
+        color = Color.parseColor("#2563EB")
+        style = Paint.Style.FILL
+        isAntiAlias = true
+    }
+
+    private val currentLocationBorderPaint = Paint().apply {
+        color = Color.WHITE
+        style = Paint.Style.STROKE
+        isAntiAlias = true
+    }
+
+    private val currentLocationArrowPaint = Paint().apply {
+        color = Color.WHITE
+        style = Paint.Style.FILL
+        isAntiAlias = true
+    }
+
     private var currentGraph: Graph? = null
     private var currentPath: List<Node>? = null
     private var currentFloor: Int? = null
@@ -52,6 +77,7 @@ class IndoorMapView @JvmOverloads constructor(
     private var continuousX: Double? = null
     private var continuousY: Double? = null
     private var continuousFloor: Int? = null
+    private var currentHeadingDeg: Float = 0f
 
     // Highlighted node (from search)
     private var highlightNodeId: String? = null
@@ -122,10 +148,15 @@ class IndoorMapView @JvmOverloads constructor(
     }
 
     fun setCurrentLocation(node: Node?) {
+        val previousX = continuousX ?: currentLocationNode?.x
+        val previousY = continuousY ?: currentLocationNode?.y
         currentLocationNode = node
         continuousX = null
         continuousY = null
         continuousFloor = null
+        if (node != null && previousX != null && previousY != null) {
+            updateHeading(previousX, previousY, node.x, node.y)
+        }
         if (node != null && currentFloor == null) {
             currentFloor = node.floor
         }
@@ -137,6 +168,11 @@ class IndoorMapView @JvmOverloads constructor(
      * Unlike [setCurrentLocation], this does not require a node — just raw x,y,floor.
      */
     fun setCurrentLocationXY(x: Double, y: Double, floor: Int) {
+        val previousX = continuousX ?: currentLocationNode?.x
+        val previousY = continuousY ?: currentLocationNode?.y
+        if (previousX != null && previousY != null) {
+            updateHeading(previousX, previousY, x, y)
+        }
         continuousX = x
         continuousY = y
         continuousFloor = floor
@@ -145,6 +181,13 @@ class IndoorMapView @JvmOverloads constructor(
             currentFloor = floor
         }
         invalidate()
+    }
+
+    private fun updateHeading(fromX: Double, fromY: Double, toX: Double, toY: Double) {
+        val dx = toX - fromX
+        val dy = toY - fromY
+        if (kotlin.math.abs(dx) < 0.05 && kotlin.math.abs(dy) < 0.05) return
+        currentHeadingDeg = Math.toDegrees(kotlin.math.atan2(dx, -dy)).toFloat()
     }
 
     /**
@@ -324,22 +367,7 @@ class IndoorMapView @JvmOverloads constructor(
             if (floorFilter == null || node.floor == floorFilter) {
                 val cx = (node.x * scaleX).toFloat()
                 val cy = (node.y * scaleY).toFloat()
-                val radius = min(12f, 14f / scaleFactor)
-
-                val fill = Paint().apply {
-                    color = Color.parseColor("#10B981")
-                    style = Paint.Style.FILL
-                    isAntiAlias = true
-                }
-                val border = Paint().apply {
-                    color = Color.WHITE
-                    style = Paint.Style.STROKE
-                    strokeWidth = 3f / scaleFactor
-                    isAntiAlias = true
-                }
-
-                canvas.drawCircle(cx, cy, radius, fill)
-                canvas.drawCircle(cx, cy, radius, border)
+                drawCurrentLocationMarker(canvas, cx, cy)
             }
         }
 
@@ -351,24 +379,31 @@ class IndoorMapView @JvmOverloads constructor(
             (floorFilter == null || cF == floorFilter)) {
             val cx = (cX * scaleX).toFloat()
             val cy = (cY * scaleY).toFloat()
-            val radius = min(12f, 14f / scaleFactor)
-
-            val fill = Paint().apply {
-                color = Color.parseColor("#3B82F6")
-                style = Paint.Style.FILL
-                isAntiAlias = true
-            }
-            val border = Paint().apply {
-                color = Color.WHITE
-                style = Paint.Style.STROKE
-                strokeWidth = 3f / scaleFactor
-                isAntiAlias = true
-            }
-
-            canvas.drawCircle(cx, cy, radius, fill)
-            canvas.drawCircle(cx, cy, radius, border)
+            drawCurrentLocationMarker(canvas, cx, cy)
         }
         
+        canvas.restore()
+    }
+
+    private fun drawCurrentLocationMarker(canvas: Canvas, cx: Float, cy: Float) {
+        val radius = min(16f, 18f / scaleFactor)
+        val haloRadius = radius * 1.9f
+        currentLocationBorderPaint.strokeWidth = 3.5f / scaleFactor
+
+        canvas.drawCircle(cx, cy, haloRadius, currentLocationHaloPaint)
+        canvas.drawCircle(cx, cy, radius, currentLocationFillPaint)
+        canvas.drawCircle(cx, cy, radius, currentLocationBorderPaint)
+
+        canvas.save()
+        canvas.rotate(currentHeadingDeg, cx, cy)
+        val arrow = Path().apply {
+            moveTo(cx, cy - radius * 0.78f)
+            lineTo(cx - radius * 0.42f, cy + radius * 0.28f)
+            lineTo(cx, cy + radius * 0.08f)
+            lineTo(cx + radius * 0.42f, cy + radius * 0.28f)
+            close()
+        }
+        canvas.drawPath(arrow, currentLocationArrowPaint)
         canvas.restore()
     }
     
